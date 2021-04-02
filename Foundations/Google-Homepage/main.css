@@ -1,0 +1,148 @@
+body {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: arial, sans-serif;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+nav > ul > li {
+    align-items: baseline;
+}
+
+#app-icon {
+    color:rgba(128, 128, 128, 0.95);
+    font-size: 1.8em;
+    margin-top: -5px;
+}
+
+#account-icon {
+    color:rgba(255, 0, 0, 0.8);
+    font-size: 2.5em;
+    margin-top: -10px;
+    margin-right: -10px;
+}
+
+#app-icon:hover, #account-icon:hover {
+    background-color: rgb(129, 129, 129, 0.2);
+    border-radius: 25px;
+    border-width: 10px;;
+}
+
+#gmail, #images {
+    font-size: 0.8em;
+}
+
+section {
+    margin-top: -10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+section > * {
+    margin-bottom: 2%;
+}
+
+.input-container {
+    width: 575px;
+    height: 40px;  
+}
+
+#search-icon {
+   padding: 12px;
+   position: absolute;
+   color:rgba(128, 128, 128, 0.5);
+}
+
+input {
+    width: 90%;
+    height: 100%;
+    border-radius: 25px;
+    border-color: rgba(128, 128, 128, 0.1);
+    outline: none;
+    padding-left: 50px;
+    font-size: 15px;
+}
+
+input:hover, input:focus {
+    box-shadow: 2px 1px rgba(128, 128, 128, 0.3);
+}
+
+#search-icon {
+    margin-left: 50ps;
+}
+
+.button-container {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+button {
+    background-color: rgba(128, 128, 128, 0.05);
+    border-radius: 5px;
+    border-color: rgba(128, 128, 128, 0.03);
+    height: 30px;
+    width: 150px;
+    font-size: 0.85em;
+    margin-right: 4%;
+}
+
+button:hover {
+    border-color: rgba(128, 128, 128, 0.2);
+    cursor: pointer;
+}
+
+footer {
+    background-color: rgba(128, 128, 128, 0.1);
+    color: rgb(95, 95, 95);
+    font-size: 0.96em;
+}
+
+.footer-list {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1em;
+    border-top: 1px solid rgb(129, 129, 129, 0.2);
+    align-items: baseline;
+}
+
+.central {
+    margin-left: -100px;
+}
+
+.central > li > img {
+    height: 15px;
+}
+
+p {
+    margin-left: 3%;
+}
+
+li {
+    list-style: none;
+    font-size: 0.9em;
+    padding-right: 30px;
+}
+
+li:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+ul {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 3%;
+    padding: 0px;
+}
