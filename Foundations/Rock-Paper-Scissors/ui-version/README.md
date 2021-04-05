@@ -1,4 +1,4 @@
-# Simple initial version
+# More aesthetic UI button version
 
 Updated rock paper scissors - https://www.theodinproject.com/paths/foundations/courses/foundations/lessons/dom-manipulation
 
