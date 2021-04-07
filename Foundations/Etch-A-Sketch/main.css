@@ -26,6 +26,10 @@ body {
     width: 800px;
 }
 
+#buttons {
+    margin-top: 30px;
+}
+
 #grid {
     display: flex;
 }
@@ -40,9 +44,14 @@ hgroup {
 }
 
 header {
+    margin-top: 5px;
+    text-align: center;
     font-family: 'Satisfy', cursive;
     font-size: 4em;
     color: rgb(226, 226, 8);
+    width: 500px;
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
 }
 
 button {
@@ -61,6 +70,11 @@ button {
 input {
     height: 50px;
     width: 100px;
+}
+
+button:hover, input:hover {
+    cursor: pointer;
+    border: 3px solid rgb(175, 169, 169);
 }
 
 #user {
