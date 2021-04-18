@@ -9,8 +9,8 @@ body {
 }
 
 #container {
-    height: 602px;
-    width: 404px;
+    height: 594px;
+    width: 484px;
     border: 1px solid black;
     margin: 0 auto;
     margin-top: 10%;
@@ -20,40 +20,58 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
     border: 1px solid black;
-    height: 500px;
+    height: 484px;
     border-bottom: 3px solid black;
 }
 
 #display-container {
-    min-height: 100px;
-    height: auto;
-    width: 100%;
+    min-height: 110px;
     border: 5px solid black;
-    word-wrap: break-word;
     background-color: rgb(238, 238, 238);
     display: flex;
+    justify-content: space-between;
+    overflow-wrap: anywhere;
+}
+
+#delete {
+    margin: 0 auto;
+    font-size: 4em;
+    user-select: none;
+}
+
+#num-display {
+    display: flex;
     flex-direction: column;
-    align-items:flex-end;
-    
+    justify-content: space-between;
+    width: 80%;
 }
 
 #previous {
+    display: flex;
     font-size: 0.9em;
     margin-right: 20px;
-    margin-top: 10px;
+    margin-top: 15px;
     color: rgb(71, 70, 67);
+    justify-content: flex-end;
+    text-align: right;
 }
 
 #display {
+    display: flex;
     font-size: 2em;
-    margin-top: 5px;
-    margin-right: 15px;
     margin-bottom: 10px;
+    margin-right: 10px;
+    justify-content: flex-end;
+    text-align: right;
 }
 
-#middle {
+#delete:hover {
+    cursor: pointer;
+    color: rgb(177, 159, 159);
+}
+
+#top {
     display: flex;
 }
 
@@ -61,31 +79,25 @@ body {
     display: flex;
 }
 
-#operators {
-    display: flex;
-    justify-content: space-around;
-}
-
 #numbers {
     display: flex;
-    justify-content: space-around;
     flex-wrap: wrap;
 }
 
-.number.button {
-    background-color: aqua;
+.button.blue {
+    background-color: rgb(192, 235, 235);
 }
 
 .operator {
-    background-color: rgb(252, 252, 82);
+    background-color: rgb(243, 243, 146);
 }
 
 #equals {
-    background-color: rgb(76, 240, 76);
+    background-color: rgb(135, 245, 135);
 }
 
 #clear {
-    background-color: rgb(250, 67, 67);
+    background-color: rgb(245, 90, 90);
 }
 
 .other {
@@ -96,10 +108,23 @@ body {
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 1.4em;
     user-select: none;
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 80px;
     display: flex;
     justify-content: center;
     align-items: center;
     border: 1px solid rgb(95, 87, 87);
+}
+
+.button:hover {
+    cursor: pointer;
+    background-color: cornsilk;
+}
+
+#clear:hover {
+    background-color: red;
+}
+
+#equals:hover {
+    background-color: rgb(3, 165, 3);
 }

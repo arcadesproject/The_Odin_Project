@@ -8,16 +8,21 @@ let operatorSet = false,
 
 const display = document.getElementById('display'),
 	previous = document.getElementById('previous'),
-	operators = document.getElementById('operators'),
-	operatorsArray = Array.from(operators.children),
-	numbers = document.getElementById('numbers'),
-	numbersArray = Array.from(numbers.children),
+	operators = document.getElementsByClassName('operator')
+	operatorsArray = Array.from(operators),
+	numbers = document.getElementsByClassName('number'),
+	numbersArray = Array.from(numbers),
 	sum = document.getElementById('equals'),
 	clear = document.getElementById('clear'),
 	decimal = document.getElementById('decimal'),
-	clearCurrent = document.getElementById('delete'),
+	backspace = document.getElementById('delete'),
+	clearCurrent = document.getElementById('clearCurrent'),
 	sign = document.getElementById('sign'),
-	answer = document.getElementById('ans')
+	answer = document.getElementById('ans'),
+	percent = document.getElementById('percentage'),
+	fraction = document.getElementById('fraction'),
+	sqrt = document.getElementById('sqrt')
+	exponent = document.getElementById('^')
 
 operatorsArray.forEach(operator => operator.addEventListener('click', function(e) {
     operatorHandler(e)
@@ -28,9 +33,16 @@ numbersArray.forEach(number => number.addEventListener('click', function(e) {
 sum.addEventListener('click', sumHandler)
 clear.addEventListener('click', clearHandler)
 decimal.addEventListener('click', decimalHandler)
-clearCurrent.addEventListener('click', clearCurrentHandler)
+backspace.addEventListener('click', backspaceHandler)
 sign.addEventListener('click', signHandler)
 answer.addEventListener('click', answerHandler)
+clearCurrent.addEventListener('click', clearCurrentHandler)
+percent.addEventListener('click', percentageHandler)
+fraction.addEventListener('click', fractionHandler)
+sqrt.addEventListener('click', sqrtHandler)
+exponent.addEventListener('click', function(e) {
+    operatorHandler(e)
+})
 
 function operate (operator, a, b) {
 	a = Number(a)
@@ -49,6 +61,9 @@ function operate (operator, a, b) {
         case '÷':
             c = a / b;
             break;
+		case '^':
+			c = Math.pow(a, b)
+			break;
     }
 	c = Number(c.toFixed(10))
 	return c > 1000000000 ? c.toExponential(9) : c
@@ -114,7 +129,7 @@ function sumHandler () {
 		let result = operate(operator, storage, value)
 		previous.innerHTML = `${storage} ${operator} ${value} =`
 		display.innerHTML = `${result}`
-		value = ''
+		value = result
 		ans = result
 		sumSet = true
 		storage = ''
@@ -146,7 +161,6 @@ function decimalHandler () {
 	} else if (value === '' || display.textContent === 'Cheeky') {
 		value = '0.'
         display.innerHTML = value
-		console.log('testy')
 	} else if (numberSet) {
         value = `${value}.`
         display.innerHTML = `${value}`
@@ -162,12 +176,19 @@ function decimalHandler () {
     operatorSet = false
 }
 
-function clearCurrentHandler () {
+function backspaceHandler () {
 	let temp = `${value}`.split('')
 	temp.pop()
 	temp = temp.join('')
 	value = temp
 	display.innerHTML = `${value}`
+	sumSet = false
+}
+
+function clearCurrentHandler () {
+	sumSet = false
+	value = ''
+	display.innerHTML = ''
 }
 
 function signHandler () {
@@ -192,10 +213,53 @@ function answerHandler () {
 	}
 }
 
+function percentageHandler () {
+	if (value === '') { return }
+	let temp = operate('÷', value, 100)
+	if (numberSet) {
+		value = temp
+		display.innerHTML = `${value}`
+	} else {
+		previous.innerHTML = `${value} / 100 =`
+		value = temp
+		display.innerHTML = `${value}`
+	}
+}
+
+function fractionHandler () {
+	if (value === '') { return }
+	let temp = operate('÷', 1, value)
+	if (numberSet) {
+		value = temp
+		display.innerHTML = `${value}`
+	} else {
+		previous.innerHTML = `1 / ${value} =`
+		value = temp
+		display.innerHTML = `${value}`
+	}
+}
+
+function sqrtHandler () {
+	if (value === '') { return }
+	let temp = Math.sqrt(value)
+	if (numberSet) {
+		value = temp
+		display.innerHTML = `${value}`
+	} else {
+		previous.innerHTML = `&radic;${value} =`
+		value = temp
+		display.innerHTML = `${value}`
+	}
+}
+
 function checkDivideZero (input) {
 	if (input === '÷' && value == '0') { 
 		clearHandler()
 		display.textContent = 'Cheeky'
 		return true 
 	} 
+}
+
+function checkEmpty () {
+	if (value === '') { return true }
 }

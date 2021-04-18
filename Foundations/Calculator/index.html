@@ -11,40 +11,45 @@
 <body>
     <div id="container">
         <div id="display-container">
-            <p id="previous"></p>
-            <p id="display"></p>
+            <div id="delete">&#x232b;</div>
+            <div id="num-display">
+                <p id="previous"></p>
+                <p id="display"></p>
+            </div>
         </div>
         <section id="calculator">
-            <div id="operators">
-                <div class="operator button" id="&plus;">&plus;</div>
-                <div class="operator button" id="&minus;">&minus;</div>
-                <div class="operator button" id="&times;">&times;</div>
-                <div class="operator button" id="&divide;">&divide;</div>
-            </div>
-            <div id="middle">
-                <div id="numbers">
-                    <div class="number button" id="1">1</div>
-                    <div class="number button" id="2">2</div>
-                    <div class="number button" id="3">3</div>
-                    <div class="number button" id="4">4</div>
-                    <div class="number button" id="5">5</div>
-                    <div class="number button" id="6">6</div>
-                    <div class="number button" id="7">7</div>
-                    <div class="number button" id="8">8</div>
-                    <div class="number button" id="9">9</div>
-                </div>
-                <div id="right">
-                    <div class="button" id="clear">C</div>
-                    <div class="button other" id="delete">CE</div>
-                    <div class="button other" id="ans">Ans</div>
-                </div>
+            <div id="top">
+                <div class="button other" id="ans">Ans</div>
+                <div class="button other" id="percentage">&percnt;</div> 
+                <div class="button other" id="clearCurrent">CE</div>  
+                <div class="button" id="clear">C</div> 
             </div>
             <div id="bottom">
-                <div class="button other" id="sign">+/−</div>
-                <div class="number button" id="0">0</div>
-                <div class="button other" id="decimal">.</div>
-                <div class="button" id="equals">&equals;</div>
-            </div>            
+                <div id="numbers">
+                    <div class="button other" id="fraction"><sup>1</sup>&nbsp;&frasl;&nbsp;&#119909;</div> 
+                    <div class="operator button other" id="^"><sub>&#119909;^&#119910;</sub></div>
+                    <div class="button other" id="sqrt"><sub>2</sub>&radic;</div>
+                    <div class="number button blue" id="1">1</div>
+                    <div class="number button blue" id="2">2</div>
+                    <div class="number button blue" id="3">3</div>
+                    <div class="number button blue" id="4">4</div>
+                    <div class="number button blue" id="5">5</div>
+                    <div class="number button blue" id="6">6</div>
+                    <div class="number button blue" id="7">7</div>
+                    <div class="number button blue" id="8">8</div>
+                    <div class="number button blue" id="9">9</div>
+                    <div class="button blue" id="sign">&plus;/&minus;</div>
+                    <div class="number button blue" id="0">0</div>
+                    <div class="button blue" id="decimal">.</div>
+                </div>
+                <div id="operators">
+                    <div class="operator button" id="&divide;">&divide;</div>
+                    <div class="operator button" id="&times;">&times;</div>
+                    <div class="operator button" id="&plus;">&plus;</div>
+                    <div class="operator button" id="&minus;">&minus;</div>
+                    <div class="button" id="equals">&equals;</div>
+                </div>
+            </div>
         </section>
     </div>
 </body>
