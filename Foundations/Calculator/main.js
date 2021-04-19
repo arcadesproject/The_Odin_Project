@@ -214,7 +214,7 @@ function answerHandler () {
 }
 
 function percentageHandler () {
-	if (value === '') { return }
+	if (checkEmpty()) { return }
 	let temp = operate('÷', value, 100)
 	if (numberSet) {
 		value = temp
@@ -227,7 +227,7 @@ function percentageHandler () {
 }
 
 function fractionHandler () {
-	if (value === '') { return }
+	if (checkEmpty()) { return }
 	let temp = operate('÷', 1, value)
 	if (numberSet) {
 		value = temp
@@ -240,7 +240,7 @@ function fractionHandler () {
 }
 
 function sqrtHandler () {
-	if (value === '') { return }
+	if (checkEmpty()) { return }
 	let temp = Math.sqrt(value)
 	if (numberSet) {
 		value = temp
@@ -263,3 +263,23 @@ function checkDivideZero (input) {
 function checkEmpty () {
 	if (value === '') { return true }
 }
+
+window.addEventListener('keydown', e => {
+	const { key } = e
+
+	if (/[0-9]/.test(key)) {
+		return document.getElementById(key).click()
+	}
+	if (/[/*-+=%.]/.test(key)) {
+		return document.querySelector(`[data-value="${key}"]`).click()
+	}
+	switch(key) {
+        case 'Enter':
+            return document.getElementById('equals').click()
+        case 'Backspace':
+        case 'Delete':
+            return document.getElementById('delete').click()
+        case 'Escape':
+            return document.getElementById('clear').click()
+    }
+})

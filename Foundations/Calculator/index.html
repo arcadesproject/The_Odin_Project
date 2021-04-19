@@ -20,7 +20,7 @@
         <section id="calculator">
             <div id="top">
                 <div class="button other" id="ans">Ans</div>
-                <div class="button other" id="percentage">&percnt;</div> 
+                <div class="button other" id="percentage" data-value="%">&percnt;</div> 
                 <div class="button other" id="clearCurrent">CE</div>  
                 <div class="button" id="clear">C</div> 
             </div>
@@ -40,17 +40,21 @@
                     <div class="number button blue" id="9">9</div>
                     <div class="button blue" id="sign">&plus;/&minus;</div>
                     <div class="number button blue" id="0">0</div>
-                    <div class="button blue" id="decimal">.</div>
+                    <div class="button blue" id="decimal" data-value=".">.</div>
                 </div>
                 <div id="operators">
-                    <div class="operator button" id="&divide;">&divide;</div>
-                    <div class="operator button" id="&times;">&times;</div>
-                    <div class="operator button" id="&plus;">&plus;</div>
-                    <div class="operator button" id="&minus;">&minus;</div>
-                    <div class="button" id="equals">&equals;</div>
+                    <div class="operator button" id="&divide;" data-value="/">&divide;</div>
+                    <div class="operator button" id="&times;" data-value="*">&times;</div>
+                    <div class="operator button" id="&plus;" data-value="+">&plus;</div>
+                    <div class="operator button" id="&minus;" data-value=""->&minus;</div>
+                    <div class="button" id="equals" data-value="=">&equals;</div>
                 </div>
             </div>
         </section>
     </div>
+    <footer id="footer">
+        Keyboard functional. Number keys. Operator keys (/, *, -, +, =), 
+        Backspace & Delete key, Enter key for equals, Escape to clear.
+    </footer>
 </body>
 </html>

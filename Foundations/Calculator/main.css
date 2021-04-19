@@ -128,3 +128,9 @@ body {
 #equals:hover {
     background-color: rgb(3, 165, 3);
 }
+
+#footer {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
