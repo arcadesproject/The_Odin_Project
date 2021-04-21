@@ -1,21 +1,14 @@
-let myLibrary = [];
-
 function Book(title, author, length, read) {
     this.title = title
     this.author = author
     this.length = length
     this.read = read
     this.id = uniqueID()
-    this.info = function() {
-        return `${title} by ${author}, ${length} pages. ${read}.`
-    }
-    this.switchRead = function () {
-        this.read = !this.read
-    }
 }
 
 function addBookToLibrary(input) {
-    myLibrary.unshift(input)
+    myLibrary.push(input)
+    populateStorage()
 }
 
 function displayBooks(library) {
@@ -64,14 +57,14 @@ function removeBook({target}) {
 }
 
 function toggleRead({target}) {
-    const item = target.parentNode.id,
-          index = myLibrary.findIndex(element => element.id === item)
-    myLibrary[index].read ? target.textContent = 'Not Read' 
+    const item = target.parentNode.id
+    const index = myLibrary.find(element => element.id === item)
+    index.read ? target.textContent = 'Not Read' 
         : target.textContent = 'Read'
-    myLibrary[index].read ? target.style.backgroundColor = 'rgb(214, 75, 75)'
+    index.read ? target.style.backgroundColor = 'rgb(214, 75, 75)'
         : target.style.backgroundColor = 'rgb(12, 158, 12)'
-    myLibrary[index].switchRead()
-    
+    index.read = !index.read   
+    populateStorage()
 }
 
 function uniqueID () {
@@ -106,8 +99,30 @@ submitBook.addEventListener('submit', function(event) {
     form.reset()
 })
 
-const Ulysses = new Book('Ulysses', 'James Joyce', 734, true)
-addBookToLibrary(Ulysses)
-const TheThirdPoliceman = new Book('The Third Policeman', 'Flann O\'Brien', 212, false)
-addBookToLibrary(TheThirdPoliceman)
+const Ulysses = new Book('Ulysses', 'James Joyce', 734, false)
+const TheThirdPoliceman = new Book('The Third Policeman', 'Flann O\'Brien', 212, true)
+const Molloy = new Book('Molloy', 'Samuel Beckett', 256, true)
+let myLibrary = [Ulysses, TheThirdPoliceman, Molloy];
+
+
+
+function getLocalStorage() {
+    if(!localStorage.getItem('library')) {
+        populateStorage()
+    } else {
+        setLibrary()
+    }
+}
+
+function setLibrary() {
+    myLibrary = JSON.parse(localStorage.getItem('library'))
+}
+
+function populateStorage() {
+    localStorage.setItem('library', JSON.stringify(myLibrary))
+    console.log()
+    setLibrary()
+}
+
+getLocalStorage();
 displayBooks(myLibrary)
