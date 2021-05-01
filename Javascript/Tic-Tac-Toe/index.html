@@ -4,9 +4,37 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="main.css">
+    <script src="main.js" defer></script>
 </head>
 <body>
+    <header id="title">
+        <h1>TIC-TAC-TOE</h1>
+    </header>
+    <div id="container">
+        <div class="block" data-one="0" data-two="0"></div>
+        <div class="block" data-one="0" data-two="1"></div>
+        <div class="block" data-one="0" data-two="2"></div>
+        <div class="block" data-one="1" data-two="0"></div>
+        <div class="block" data-one="1" data-two="1"></div>
+        <div class="block" data-one="1" data-two="2"></div>
+        <div class="block" data-one="2" data-two="0"></div>
+        <div class="block" data-one="2" data-two="1"></div>
+        <div class="block" data-one="2" data-two="2"></div>
+    </div>
+    <div id="buttons">
+        <button id="restart">Restart</button>
+        <button id="human">Human</button>
+        <button id="computer">Computer</button>
+        <button id="x">X</button>
+        <button id="o">O</button>
+    </div>
+    <div id="info">
+        <p id="opponent">vs. Computer</p>
+        <p id="marker">X</p>
+        <p id="winner"></p>
+    </div>
     
 </body>
 </html>
