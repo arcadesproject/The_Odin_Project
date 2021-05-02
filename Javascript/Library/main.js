@@ -1,9 +1,19 @@
-function Book(title, author, length, read) {
-    this.title = title
-    this.author = author
-    this.length = length
-    this.read = read
-    this.id = uniqueID()
+// function Book(title, author, length, read) {
+//     this.title = title
+//     this.author = author
+//     this.length = length
+//     this.read = read
+//     this.id = uniqueID()
+// }
+
+class Book {
+    constructor(title, author, length, read) {
+        this.title = title
+        this.author = author
+        this.length = length
+        this.read = read
+        this.id = uniqueID()
+    }
 }
 
 function addBookToLibrary(input) {
@@ -31,15 +41,11 @@ function createCard (e) {
     let length = document.createElement('div')
     length.innerHTML = `<span class="length">${e.length} pages</span>`
     let remove = document.createElement('button')
-    remove.addEventListener('click', function(e) {
-        removeBook(e)
-    })
+    remove.addEventListener('click', removeBook)
     remove.textContent = 'X'
     remove.className = 'remove'
     let read = document.createElement('button')
-    read.addEventListener('click', function(e) {
-        toggleRead(e)
-    })
+    read.addEventListener('click', toggleRead)
     read.className = 'read'
     e.read ? read.textContent = 'Read'
             : read.textContent = 'Not Read' 
@@ -54,6 +60,7 @@ function removeBook({target}) {
           index = myLibrary.findIndex(element => element.id === item)
     myLibrary.splice(index, 1)
     target.parentNode.parentNode.removeChild(target.parentNode)
+    populateStorage()
 }
 
 function toggleRead({target}) {
@@ -90,7 +97,6 @@ submitBook.addEventListener('submit', function(event) {
         pages = document.getElementById('pages'),
         read = document.getElementById('read')
     const book = new Book(`${title.value}`, `${author.value}`, `${pages.value}`, read.checked)
-    console.log(read.value)
     addBookToLibrary(book)
     const card = createCard(book)
     const cards = document.getElementById('cards')
@@ -120,7 +126,6 @@ function setLibrary() {
 
 function populateStorage() {
     localStorage.setItem('library', JSON.stringify(myLibrary))
-    console.log()
     setLibrary()
 }
 
