@@ -27,9 +27,7 @@ const displayController = (() => {
     const marker = document.getElementById('marker')
 
     blocks.forEach((block) => {
-        block.addEventListener('click', function(e) {
-            markBoard(e)
-        })
+        block.addEventListener('click', markBoard)
         container.appendChild(block)
     })
 
@@ -38,6 +36,7 @@ const displayController = (() => {
     const computer = document.getElementById('computer')
     const x = document.getElementById('x')
     const o = document.getElementById('o')
+    const winner = document.getElementById('winner')
     restartButton.addEventListener('click', reset)
     human.addEventListener('click', setHuman)
     computer.addEventListener('click', setComputer)
@@ -71,6 +70,10 @@ const displayController = (() => {
         gameController.resetCount()
         gameController.initialTurn()
         checkComputerStart()
+        blocks.forEach((block) => {
+            block.addEventListener('click', markBoard)
+        })
+        winner.textContent = ''
     }
 
     function setHuman() {
@@ -101,18 +104,20 @@ const displayController = (() => {
         }
     }
 
-    return { reset, computerMark }
+    function gameOver() {
+        winner.textContent = 'Game Over'
+        blocks.forEach((block) => {
+            block.removeEventListener('click', markBoard)
+        })
+    }
+
+    return { reset, computerMark, gameOver }
 })();
 
 const gameController = (() => {
     let turn = true
     let vertical = 0
     let diag = 0
-
-    function gameOver() {
-        alert('Game Over')
-        displayController.reset()
-    }
 
     function takeTurn() {
         turn = !turn
@@ -140,7 +145,7 @@ const gameController = (() => {
 
     function counterCheck(count) {
         if (count === 3) { 
-            gameOver() 
+            displayController.gameOver() 
             return true
         } else {
             vertical = 0
@@ -151,13 +156,13 @@ const gameController = (() => {
     function checkGameOver(one, two) {
         //Check draw
         if (!gameBoard.board.some(row => row.includes(''))) {
-            gameOver()
+            displayController.gameOver()
             return true
         } 
 
         //check horizontal
         if (gameBoard.board[one].every(item => item === gameBoard.board[one][two])) {
-            gameOver()
+            displayController.gameOver()
             return true
         } 
 
