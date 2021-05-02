@@ -25,7 +25,6 @@ const displayController = (() => {
     const blocks = Array.from(document.getElementsByClassName('block'))
     const opponentInfo = document.getElementById('opponent')
     const marker = document.getElementById('marker')
-    const winner = document.getElementById('winner')
 
     blocks.forEach((block) => {
         block.addEventListener('click', function(e) {
