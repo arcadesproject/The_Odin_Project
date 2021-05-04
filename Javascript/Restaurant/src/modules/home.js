@@ -7,7 +7,7 @@ function home() {
     title.id = 'title'
 
     const image = document.createElement('img')
-    image.src = `../src/restaurant.jpg`
+    image.src = `../src/assets/restaurant.jpg`
     image.id = 'restaurant-img'
 
     const description = document.createElement('p')

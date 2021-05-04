@@ -10,6 +10,7 @@ function menu() {
         }
     }
 
+    // Takes in meal and produces card to display on DOM
     function createCard (meal) {
         const card = document.createElement('div')
         card.className = 'meal-card'
