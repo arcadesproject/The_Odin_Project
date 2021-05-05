@@ -1,7 +1,7 @@
 {
   "name": "Restaurant",
   "version": "1.0.0",
-  "description": "",
+  "description": "A simple tabbed restaurant page done for The Odin Project",
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
