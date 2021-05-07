@@ -2,10 +2,10 @@ import createID from './createID'
 
 let projects = []
 
-const projectFactory = (name) => {
+const projectFactory = (name, description) => {
     const list = []
     const id = createID('project')
-    return { name, list, id }
+    return { name, description, list, id }
 }
 
 const addProject = (name) => {
@@ -19,4 +19,4 @@ addProject('test2')
 
 //remove project too?
 
-export { addProject, projects }
+export { addProject, projects, projectFactory }

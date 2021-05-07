@@ -1,7 +1,8 @@
-import displayProjects from './displayProjects'
-import displayTodos from './displayTodos'
+import { displayProjects } from './displayProjects'
+import { displayTodos } from './displayTodos'
 import { currentProject } from './switchProject'
-import { todoFactory, addTodo } from './todoFactory'
+import { noteForm } from './noteForm'
+import { projectForm } from './projectForm'
 
 function createHeader() {
     const header = document.createElement('header')
@@ -10,8 +11,6 @@ function createHeader() {
     header.appendChild(title)
     return header
 }
-
-
 
 function createMain() {
     const main = document.createElement('section')
@@ -28,7 +27,7 @@ function createFooter() {
 
 function page() {
     const content = document.getElementById('content')
-    content.append(createHeader(), createMain(), createFooter())
+    content.append(createHeader(), createMain(), createFooter(), noteForm(), projectForm())
 }
 
 export default page
