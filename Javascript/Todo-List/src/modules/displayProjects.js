@@ -1,6 +1,7 @@
-import { projects } from './storage'
+import { projects, currentProject } from './storage'
 import { showProjectForm } from './projectForm'
 import { switchProjectDisplay } from './switchProject'
+import { todoCard } from './displayTodos'
 
 function projectCard(project) {
     const container = document.createElement('div')
@@ -55,11 +56,26 @@ function displayProjects() {
 function removeProject({target}) {
     const { id } = target
     const projectIndex = projects.findIndex(project => project.id === id)
-    projects.splice(projectIndex, 1)
     target.parentNode.parentNode.removeChild(target.parentNode)
+    
+    if (projects[projectIndex] === currentProject) {
+        projects.splice(projectIndex, 1)
+        const notesContainer = document.getElementById('notes-container')
+        notesContainer.innerHTML = ''
+        if (projects.length > 0) {
+            currentProject = projects[0]
+            currentProject.list.forEach(todo => {
+            const card = todoCard(todo)
+            notesContainer.appendChild(card)
+            })
+        } else {
+            currentProject = null
+        } 
+    } else {
+        projects.splice(projectIndex, 1)
+    }
 
-    // const notesContainer = document.getElementById('notes-container')
-    // projects.length > 1 ? switchProjectDisplay(projects[0]) : notesContainer.textContent = ''
+
 }
 
 

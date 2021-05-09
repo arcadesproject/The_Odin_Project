@@ -6,7 +6,6 @@ function switchProject(project) {
 }
 
 function switchProjectDisplay({target}) {
-    console.log(target)
     const project = projects.find(project => project.id === target.id)
     const notesContainer = document.getElementById('notes-container')
     clearNotes(notesContainer)
