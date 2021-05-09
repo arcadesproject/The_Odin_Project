@@ -1,5 +1,5 @@
 import createID from './createID'
-import { currentProject } from './switchProject'
+// import { currentProject } from './switchProject'
 
 const todoFactory = (name, description, dueDate, priority) => {
     const id = createID('note')
@@ -9,8 +9,5 @@ const todoFactory = (name, description, dueDate, priority) => {
 function addTodo(todo, project) {
     project.list.unshift(todo)
 }
-
-const testNote = todoFactory('Test', 'Just a test', 25, 'low')
-addTodo(testNote, currentProject)
 
 export { todoFactory, addTodo }

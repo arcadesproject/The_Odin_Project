@@ -1,5 +1,6 @@
-import { projects } from './projectFactory'
+import { projects } from './storage'
 import { showProjectForm } from './projectForm'
+import { switchProjectDisplay } from './switchProject'
 
 function projectCard(project) {
     const container = document.createElement('div')
@@ -8,11 +9,18 @@ function projectCard(project) {
     const title = document.createElement('p')
     title.classList.add('project-title')
     title.textContent = `${project.name}`
+    title.id = `${project.id}`
+    title.addEventListener('click', switchProjectDisplay)
     
     const description = document.createElement('p')
     description.textContent = `${project.description}`
+
+    const removeButton = document.createElement('button')
+    removeButton.textContent = 'del'
+    removeButton.id = `${project.id}`
+    removeButton.addEventListener('click', removeProject)
     
-    container.appendChild(title)
+    container.append(title, removeButton)
     return container
 }
 
@@ -43,5 +51,16 @@ function displayProjects() {
 
     return projectsContainer
 }
+
+function removeProject({target}) {
+    const { id } = target
+    const projectIndex = projects.findIndex(project => project.id === id)
+    projects.splice(projectIndex, 1)
+    target.parentNode.parentNode.removeChild(target.parentNode)
+
+    // const notesContainer = document.getElementById('notes-container')
+    // projects.length > 1 ? switchProjectDisplay(projects[0]) : notesContainer.textContent = ''
+}
+
 
 export { projectCard, displayProjects }

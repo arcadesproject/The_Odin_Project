@@ -1,6 +1,5 @@
 import createID from './createID'
-
-let projects = []
+import { projects } from './storage'
 
 const projectFactory = (name, description) => {
     const list = []
@@ -8,15 +7,16 @@ const projectFactory = (name, description) => {
     return { name, description, list, id }
 }
 
-const addProject = (name) => {
-    const project = projectFactory(name)
+const addProject = (name, description) => {
+    const project = projectFactory(name, description)
     projects.unshift(project)
+    return project
 }
 
-addProject('test')
-addProject('test2')
 
+addProject('test', 'testing')
+addProject('test2', 'testing')
 
 //remove project too?
 
-export { addProject, projects, projectFactory }
+export { addProject, projectFactory }

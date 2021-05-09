@@ -1,5 +1,6 @@
-import { addProject, projects, projectFactory } from "./projectFactory"
+import { addProject } from "./projectFactory"
 import { projectCard } from './displayProjects'
+import { switchProjectDisplay } from "./switchProject"
 
 function projectForm() {
     const form = document.createElement('form')
@@ -10,10 +11,12 @@ function projectForm() {
 
     const listTitle = document.createElement('li')
     const title = document.createElement('input')
+    title.required = true
     listTitle.appendChild(title)
     
     const listDescription = document.createElement('li')
     const description = document.createElement('input')
+    description.required = true
     listDescription.appendChild(description)
 
     const buttonSection = document.createElement('li')
@@ -38,9 +41,9 @@ function handleProjectSubmit(e) {
     const { target } = e
     const title  = target[0].value
     const description = target[1].value
-    const project = projectFactory(title, description)
-    addProject(project)
+    const project = addProject(title, description)
     const projectBlock = projectCard(project)
+    projectBlock.addEventListener('click', switchProjectDisplay)
     const projectsList = document.getElementById('project-container')
     projectsList.prepend(projectBlock)
     hideProjectForm()

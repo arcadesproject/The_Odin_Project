@@ -1,12 +1,13 @@
 import { showNoteForm } from './noteForm'
+import { currentProject } from './storage'
 
 function todoCard(todo) {
     const container = document.createElement('div')
     container.classList.add('todo-card')
-    container.id = todo.id
 
     const title = document.createElement('h3')
     title.textContent = `${todo.name}`
+    title.id = 'test'
 
     const description = document.createElement('p')
     description.textContent = `${todo.description}`
@@ -17,7 +18,12 @@ function todoCard(todo) {
     const priority = document.createElement('p')
     priority.textContent = `${todo.priority}`
 
-    container.append(title, description, dueDate, priority)
+    const removeButton = document.createElement('button')
+    removeButton.textContent = 'del'
+    removeButton.addEventListener('click', removeTodo)
+    removeButton.id = todo.id
+
+    container.append(title, description, dueDate, priority, removeButton)
     return container
 }
 
@@ -42,6 +48,13 @@ function displayTodos(project) {
     })
 
     return todosContainer
+}
+
+function removeTodo({target}) {
+    const { id } = target
+    const noteIndex = currentProject.list.findIndex(note => note.id === id)
+    currentProject.list.splice(noteIndex, 1)
+    target.parentNode.parentNode.removeChild(target.parentNode)
 }
 
 export { todoCard, displayTodos }

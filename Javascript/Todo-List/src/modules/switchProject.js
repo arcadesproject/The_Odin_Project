@@ -1,11 +1,24 @@
-import { projects } from './projectFactory'
-
-let currentProject
+import { projects, currentProject } from './storage'
+import { todoCard } from './displayTodos'
 
 function switchProject(project) {
     currentProject = project
 }
 
-switchProject(projects[0])
+function switchProjectDisplay({target}) {
+    console.log(target)
+    const project = projects.find(project => project.id === target.id)
+    const notesContainer = document.getElementById('notes-container')
+    clearNotes(notesContainer)
+    project.list.forEach(todo => {
+        const card = todoCard(todo)
+        notesContainer.appendChild(card)
+    })
+    switchProject(project)
+}
 
-export { currentProject, switchProject }
+function clearNotes(notesContainer) {
+    notesContainer.innerHTML = ''
+}
+
+export { switchProject, switchProjectDisplay }

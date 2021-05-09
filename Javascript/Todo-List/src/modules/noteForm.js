@@ -1,4 +1,4 @@
-import { currentProject } from "./switchProject"
+import { currentProject } from "./storage"
 import { addTodo, todoFactory } from "./todoFactory"
 import { todoCard } from './displayTodos'
 
@@ -11,18 +11,22 @@ function noteForm() {
 
     const listTitle = document.createElement('li')
     const title = document.createElement('input')
+    title.required = true
     listTitle.appendChild(title)
     
     const listDescription = document.createElement('li')
     const description = document.createElement('input')
+    description.required = true
     listDescription.appendChild(description)
 
     const listDate = document.createElement('li')
     const dueDate = document.createElement('input')
+    dueDate.required = true
     listDate.appendChild(dueDate)
 
     const listPriority = document.createElement('li')
     const priority = document.createElement('input')
+    priority.required = true
     listPriority.appendChild(priority)
 
     const buttonSection = document.createElement('li')
