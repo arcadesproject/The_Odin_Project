@@ -31,17 +31,23 @@ function displayTodos(project) {
     const todosContainer = document.createElement('div')
     todosContainer.id = 'notes'
     const todosHeader = document.createElement('div')
+    todosHeader.id = 'notes-header'
     const todosTitle = document.createElement('h1')
+    todosTitle.id = 'notes-title'
     const todosButton = document.createElement('button')
+    todosButton.id = 'notes-button'
     const notesContainer = document.createElement('section')
     notesContainer.id = 'notes-container'
 
     todosButton.addEventListener('click', showNoteForm)
     todosButton.textContent = 'Add'
     todosHeader.append(todosTitle, todosButton)
-    todosTitle.textContent = 'Notes'
+    todosTitle.textContent = `${currentProject.name} notes`
     todosContainer.append(todosHeader, notesContainer)
     
+    //only display title, date and priority initially
+    //add button to expand/close displaying extra description
+
     project.list.forEach(todo => {
         const card = todoCard(todo)
         notesContainer.appendChild(card)

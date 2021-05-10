@@ -70,13 +70,12 @@ function removeProject({target}) {
             })
         } else {
             currentProject = null
+            const notesHeader = document.getElementById('notes-header')
+            notesHeader.innerHTML = ''
         } 
     } else {
         projects.splice(projectIndex, 1)
     }
-
-
 }
-
 
 export { projectCard, displayProjects }
