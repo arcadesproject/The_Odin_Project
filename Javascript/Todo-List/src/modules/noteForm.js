@@ -11,21 +11,25 @@ function noteForm() {
 
     const listTitle = document.createElement('li')
     const title = document.createElement('input')
+    title.id = 'note-form-title'
     title.required = true
     listTitle.appendChild(title)
     
     const listDescription = document.createElement('li')
     const description = document.createElement('input')
+    description.id = 'note-form-description'
     description.required = true
     listDescription.appendChild(description)
 
     const listDate = document.createElement('li')
     const dueDate = document.createElement('input')
+    dueDate.id = 'note-form-date'
     dueDate.required = true
     listDate.appendChild(dueDate)
 
     const listPriority = document.createElement('li')
     const priority = document.createElement('input')
+    priority.id = 'note-form-priority'
     priority.required = true
     listPriority.appendChild(priority)
 
@@ -58,7 +62,6 @@ function handleNoteSubmit(e) {
     const notesContainer = document.getElementById('notes-container')
     notesContainer.prepend(noteCard)
     hideNoteForm()
-
 }
 
 function showNoteForm() {
@@ -76,4 +79,4 @@ function resetForm(form) {
     form.reset()
 }
 
-export { noteForm, showNoteForm, hideNoteForm }
+export { noteForm, showNoteForm, hideNoteForm}

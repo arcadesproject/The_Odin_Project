@@ -1,29 +1,39 @@
 import { showNoteForm } from './noteForm'
-import { currentProject } from './storage'
+import { showEditNote } from './editNote'
+import { currentProject, projects } from './storage'
 
 function todoCard(todo) {
     const container = document.createElement('div')
     container.classList.add('todo-card')
+    container.id = todo.id
 
     const title = document.createElement('h3')
     title.textContent = `${todo.name}`
-    title.id = 'test'
+    title.classList.add('note-title')
 
     const description = document.createElement('p')
     description.textContent = `${todo.description}`
+    description.classList.add('note-description')
 
     const dueDate = document.createElement('p')
     dueDate.textContent = `${todo.dueDate}`
+    dueDate.classList.add('note-date')
 
     const priority = document.createElement('p')
     priority.textContent = `${todo.priority}`
+    priority.classList.add('note-priority')
+
+    const editButton = document.createElement('button')
+    editButton.textContent = 'edit'
+    editButton.addEventListener('click', showEditNote)
+    editButton.classList.add('edit-note')
 
     const removeButton = document.createElement('button')
     removeButton.textContent = 'del'
     removeButton.addEventListener('click', removeTodo)
-    removeButton.id = todo.id
+    removeButton.classList.add('remove-note')
 
-    container.append(title, description, dueDate, priority, removeButton)
+    container.append(title, description, dueDate, priority, editButton, removeButton)
     return container
 }
 
@@ -44,11 +54,9 @@ function displayTodos(project) {
     todosHeader.append(todosTitle, todosButton)
     todosTitle.textContent = `${currentProject.name} notes`
     todosContainer.append(todosHeader, notesContainer)
-    
-    //only display title, date and priority initially
-    //add button to expand/close displaying extra description
 
-    project.list.forEach(todo => {
+    const tempList = project.list
+    tempList.forEach(todo => {
         const card = todoCard(todo)
         notesContainer.appendChild(card)
     })
@@ -57,7 +65,7 @@ function displayTodos(project) {
 }
 
 function removeTodo({target}) {
-    const { id } = target
+    const { id } = target.parentNode
     const noteIndex = currentProject.list.findIndex(note => note.id === id)
     currentProject.list.splice(noteIndex, 1)
     target.parentNode.parentNode.removeChild(target.parentNode)

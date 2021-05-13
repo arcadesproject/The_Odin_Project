@@ -1,5 +1,4 @@
 import createID from './createID'
-// import { currentProject } from './switchProject'
 
 const todoFactory = (name, description, dueDate, priority) => {
     const id = createID('note')

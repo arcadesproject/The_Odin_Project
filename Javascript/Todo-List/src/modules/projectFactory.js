@@ -13,10 +13,7 @@ const addProject = (name, description) => {
     return project
 }
 
-
 addProject('test', 'testing')
 addProject('test2', 'testing')
-
-//remove project too?
 
 export { addProject, projectFactory }

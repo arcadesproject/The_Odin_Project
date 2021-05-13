@@ -1,16 +1,16 @@
 import { projects, currentProject } from './storage'
 import { todoCard, displayTodos } from './displayTodos'
-import { showNoteForm } from './noteForm'
 
 function switchProject(project) {
     currentProject = project
 }
 
 function switchProjectDisplay({target}) {
-    const project = projects.find(project => project.id === target.id)
+    const project = projects.find(project => project.id === target.parentNode.id)
     const notesContainer = document.getElementById('notes-container')
     clearNotes(notesContainer)
-    project.list.forEach(todo => {
+    const tempList = project.list
+    tempList.forEach(todo => {
         const card = todoCard(todo)
         notesContainer.appendChild(card)
     })
