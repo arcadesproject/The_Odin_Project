@@ -2,13 +2,15 @@ import { displayProjects } from './displayProjects'
 import { displayTodos } from './displayTodos'
 import { noteForm } from './noteForm'
 import { projectForm } from './projectForm'
-import { projects, currentProject } from './storage'
+import { projects, currentProject, getLocalStorage } from './storage'
 import { switchProject } from './switchProject'
 import { addTodo, todoFactory } from './todoFactory'
 
 switchProject(projects[0])
 const testNote = todoFactory('Test', 'Just a test', 25, 'low')
 addTodo(testNote, currentProject)
+
+getLocalStorage()
 
 function createHeader() {
     const header = document.createElement('header')

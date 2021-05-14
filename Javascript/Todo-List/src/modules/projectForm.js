@@ -47,6 +47,7 @@ function handleProjectSubmit(e) {
     const projectsList = document.getElementById('project-container')
     projectsList.prepend(projectBlock)
     hideProjectForm()
+    populateStorage()
 }
 
 function showProjectForm() {

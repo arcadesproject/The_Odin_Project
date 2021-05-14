@@ -12,6 +12,7 @@ function changeNoteStorage(title, description, date, priority, noteID) {
     projects[projectIndex].list[noteIndex].priority = priority.innerText
     
     currentProject = projects[projectIndex]
+    populateStorage()
 } 
 
 function changeProjectStorage(title, description, projectID) {
@@ -21,7 +22,30 @@ function changeProjectStorage(title, description, projectID) {
     projects[projectIndex].description = description
 
     currentProject = projects[projectIndex]
-    console.log(projects)
+    populateStorage()
 }
 
-export { projects, currentProject, changeNoteStorage, changeProjectStorage }
+function getLocalStorage() {
+    if(!localStorage.getItem('projects')) {
+        populateStorage()
+    } else {
+        setProjects()
+        setCurrentProject()
+    }
+}
+
+function setProjects() {
+    projects = JSON.parse(localStorage.getItem('projects'))
+}
+
+function setCurrentProject() {
+    currentProject = JSON.parse(localStorage.getItem('currentProject'))
+}
+
+function populateStorage() {
+    localStorage.setItem('projects', JSON.stringify(projects))
+    localStorage.setItem('currentProject', JSON.stringify(currentProject))
+    setProjects()
+}
+
+export { projects, currentProject, changeNoteStorage, changeProjectStorage, getLocalStorage, populateStorage }

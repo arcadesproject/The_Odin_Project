@@ -1,4 +1,4 @@
-import { projects, currentProject } from './storage'
+import { projects, currentProject, populateStorage } from './storage'
 import { showProjectForm } from './projectForm'
 import { switchProjectDisplay } from './switchProject'
 import { todoCard } from './displayTodos'
@@ -90,6 +90,7 @@ function removeProject({target}) {
     } else {
         projects.splice(projectIndex, 1)
     }
+    populateStorage()
 }
 
 export { projectCard, displayProjects }

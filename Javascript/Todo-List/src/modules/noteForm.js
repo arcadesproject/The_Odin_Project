@@ -1,4 +1,4 @@
-import { currentProject } from "./storage"
+import { currentProject, populateStorage } from "./storage"
 import { addTodo, todoFactory } from "./todoFactory"
 import { todoCard } from './displayTodos'
 
@@ -62,6 +62,7 @@ function handleNoteSubmit(e) {
     const notesContainer = document.getElementById('notes-container')
     notesContainer.prepend(noteCard)
     hideNoteForm()
+    populateStorage()
 }
 
 function showNoteForm() {

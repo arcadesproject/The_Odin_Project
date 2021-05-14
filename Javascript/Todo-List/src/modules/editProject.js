@@ -68,16 +68,14 @@ function handleEditProjectSubmit(e) {
 
     const notesTitle = document.getElementById('notes-title')
     const notesSub = document.getElementById('notes-sub')
-    //const projectDescription = container.querySelector('.project-description')
 
     if (currentProject.id === target.id) { 
-        notesTitle.textContent = `${title}`
+        notesTitle.textContent = `${title} notes`
         notesSub.textContent = `${description}` 
     }
 
     projectTitle.textContent = `${title}`
     
-
     changeProjectStorage(projectTitle, description, target.id)
     hideEditProject()
 }

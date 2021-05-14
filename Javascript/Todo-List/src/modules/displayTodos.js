@@ -74,6 +74,7 @@ function removeTodo({target}) {
     const noteIndex = currentProject.list.findIndex(note => note.id === id)
     currentProject.list.splice(noteIndex, 1)
     target.parentNode.parentNode.removeChild(target.parentNode)
+    populateStorage()
 }
 
 function showDescription({target}) {
