@@ -53,19 +53,19 @@ function showEditNote({target}) {
     main.appendChild(editNoteForm(noteID))
 
     const titleSection = target.parentNode.querySelector('.note-title')
-    const descriptionSection = target.parentNode.querySelector('.note-description')
     const dateSection = target.parentNode.querySelector('.note-date')
     const prioritySection = target.parentNode.querySelector('.note-priority')
+    const descriptionSection = target.parentNode.querySelector('.note-description')
 
     const formTitle = document.querySelector('.note-form-edit-title')
-    const formDescription = document.querySelector('.note-form-edit-description')
     const formDate = document.querySelector('.note-form-edit-date')
     const formPriority = document.querySelector('.note-form-edit-priority')
+    const formDescription = document.querySelector('.note-form-edit-description')
 
     formTitle.value = `${titleSection.textContent}`
-    formDescription.value = `${descriptionSection.textContent}`
     formDate.value = `${dateSection.textContent}`
     formPriority.value = `${prioritySection.textContent}`
+    formDescription.value = `${descriptionSection.textContent}`
 }
 
 function hideEditNote() {

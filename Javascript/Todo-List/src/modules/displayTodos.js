@@ -19,6 +19,11 @@ function todoCard(todo) {
     priority.textContent = `${todo.priority}`
     priority.classList.add('note-priority')
 
+    const description = document.createElement('p')
+    description.textContent = `${todo.description}`
+    description.classList.add('note-description')
+    description.style.display = 'none'
+
     const expandButton = document.createElement('button')
     expandButton.textContent = '+'
     expandButton.addEventListener('click', showDescription)
@@ -35,7 +40,7 @@ function todoCard(todo) {
     removeButton.addEventListener('click', removeTodo)
     removeButton.classList.add('remove-note')
 
-    container.append(title, dueDate, priority, expandButton, editButton, removeButton)
+    container.append(title, dueDate, priority, description, expandButton, editButton, removeButton)
     return container
 }
 
@@ -78,20 +83,15 @@ function removeTodo({target}) {
 }
 
 function showDescription({target}) {
-    const { id } = target
-
-    const description = document.createElement('p')
-    description.textContent = `${id}`
-    description.classList.add('note-description')
-    target.parentNode.appendChild(description)
-
+    const description = target.parentNode.querySelector('.note-description')
+    description.style.display = 'block'
     target.textContent = '-'
     target.removeEventListener('click', showDescription)
     target.addEventListener('click', hideDescription)
 }
 
 function hideDescription({target}) {
-    target.parentNode.removeChild(target.parentNode.lastChild)
+    target.parentNode.querySelector('.note-description').style.display = 'none'
     target.textContent = '+'
     target.removeEventListener('click', hideDescription)
     target.addEventListener('click', showDescription)

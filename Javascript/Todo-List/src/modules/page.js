@@ -5,9 +5,10 @@ import { projectForm } from './projectForm'
 import { projects, currentProject, getLocalStorage } from './storage'
 import { switchProject } from './switchProject'
 import { addTodo, todoFactory } from './todoFactory'
+import { format } from 'date-fns'
 
 switchProject(projects[0])
-const testNote = todoFactory('Test', 'Just a test', 25, 'low')
+const testNote = todoFactory('Test', 'Just a test', format(new Date(2022, 5, 6), 'yyyy-MM-dd'), 'low')
 addTodo(testNote, currentProject)
 
 getLocalStorage()

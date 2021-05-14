@@ -23,6 +23,7 @@ function noteForm() {
 
     const listDate = document.createElement('li')
     const dueDate = document.createElement('input')
+    dueDate.type = 'date'
     dueDate.id = 'note-form-date'
     dueDate.required = true
     listDate.appendChild(dueDate)

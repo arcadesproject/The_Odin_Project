@@ -11,3 +11,6 @@ Open/Closed Principle
 Liskov Substitution Principle
 Interface Segregation Principle
 Dependency Inversion Principle
+
+With Local Storage.
+Npm package date-fns also added.
