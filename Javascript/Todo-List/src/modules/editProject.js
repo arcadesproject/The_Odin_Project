@@ -1,9 +1,9 @@
-import { currentProject, changeProjectStorage } from './storage'
+import { currentProject, changeProjectStorage, projects } from './storage'
 
-function editProjectForm() {
+function editProjectForm(projectID) {
     const form = document.createElement('form')
     form.classList.add('project-form-edit')
-    form.id = `${currentProject.id}`
+    form.id = `${projectID}`
 
     const listContainer = document.createElement('ul')
 
@@ -36,18 +36,19 @@ function editProjectForm() {
 }
 
 function showEditProject({target}) {
-    const noteID = target.parentNode.id
+    const projectID = target.parentNode.id
+    const projectIndex = projects.findIndex(project => project.id === projectID)
+    const description = projects[projectIndex].description
     const main = document.getElementById('main')
-    main.appendChild(editProjectForm(noteID))
+    main.appendChild(editProjectForm(projectID))
 
     const titleSection = target.parentNode.querySelector('.project-title')
-    const descriptionSection = target.parentNode.querySelector('.project-description')
 
     const formTitle = document.querySelector('.project-form-edit-title')
     const formDescription = document.querySelector('.project-form-edit-description')
 
     formTitle.value = `${titleSection.textContent}`
-    formDescription.value = `${descriptionSection.textContent}`
+    formDescription.value = `${description}`
 }
 
 function hideEditProject() {
@@ -64,12 +65,20 @@ function handleEditProjectSubmit(e) {
 
     const container = document.getElementById(`${target.id}`)
     const projectTitle = container.querySelector('.project-title')
-    const projectDescription = container.querySelector('.project-description')
+
+    const notesTitle = document.getElementById('notes-title')
+    const notesSub = document.getElementById('notes-sub')
+    //const projectDescription = container.querySelector('.project-description')
+
+    if (currentProject.id === target.id) { 
+        notesTitle.textContent = `${title}`
+        notesSub.textContent = `${description}` 
+    }
 
     projectTitle.textContent = `${title}`
-    projectDescription.textContent = `${description}`
+    
 
-    changeProjectStorage(projectTitle, projectDescription, target.id)
+    changeProjectStorage(projectTitle, description, target.id)
     hideEditProject()
 }
 

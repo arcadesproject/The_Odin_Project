@@ -15,12 +15,13 @@ function changeNoteStorage(title, description, date, priority, noteID) {
 } 
 
 function changeProjectStorage(title, description, projectID) {
-    const projectIndex = projects.findIndex(project => project.name === currentProject.name)
-
+    const projectIndex = projects.findIndex(project => project.id === projectID)
+    console.log(description)
     projects[projectIndex].name = title.innerText
-    projects[projectIndex].description = description.innerText
+    projects[projectIndex].description = description
 
     currentProject = projects[projectIndex]
+    console.log(projects)
 }
 
 export { projects, currentProject, changeNoteStorage, changeProjectStorage }

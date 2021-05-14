@@ -1,6 +1,6 @@
 import { showNoteForm } from './noteForm'
 import { showEditNote } from './editNote'
-import { currentProject, projects } from './storage'
+import { currentProject } from './storage'
 
 function todoCard(todo) {
     const container = document.createElement('div')
@@ -11,10 +11,6 @@ function todoCard(todo) {
     title.textContent = `${todo.name}`
     title.classList.add('note-title')
 
-    const description = document.createElement('p')
-    description.textContent = `${todo.description}`
-    description.classList.add('note-description')
-
     const dueDate = document.createElement('p')
     dueDate.textContent = `${todo.dueDate}`
     dueDate.classList.add('note-date')
@@ -22,6 +18,12 @@ function todoCard(todo) {
     const priority = document.createElement('p')
     priority.textContent = `${todo.priority}`
     priority.classList.add('note-priority')
+
+    const expandButton = document.createElement('button')
+    expandButton.textContent = '+'
+    expandButton.addEventListener('click', showDescription)
+    expandButton.classList.add('expand-note')
+    expandButton.id = `${todo.description}`
 
     const editButton = document.createElement('button')
     editButton.textContent = 'edit'
@@ -33,7 +35,7 @@ function todoCard(todo) {
     removeButton.addEventListener('click', removeTodo)
     removeButton.classList.add('remove-note')
 
-    container.append(title, description, dueDate, priority, editButton, removeButton)
+    container.append(title, dueDate, priority, expandButton, editButton, removeButton)
     return container
 }
 
@@ -44,6 +46,8 @@ function displayTodos(project) {
     todosHeader.id = 'notes-header'
     const todosTitle = document.createElement('h1')
     todosTitle.id = 'notes-title'
+    const todosSub = document.createElement('p')
+    todosSub.id = 'notes-sub'
     const todosButton = document.createElement('button')
     todosButton.id = 'notes-button'
     const notesContainer = document.createElement('section')
@@ -51,8 +55,9 @@ function displayTodos(project) {
 
     todosButton.addEventListener('click', showNoteForm)
     todosButton.textContent = 'Add'
-    todosHeader.append(todosTitle, todosButton)
+    todosHeader.append(todosTitle, todosSub, todosButton)
     todosTitle.textContent = `${currentProject.name} notes`
+    todosSub.textContent = `${currentProject.description}`
     todosContainer.append(todosHeader, notesContainer)
 
     const tempList = project.list
@@ -69,6 +74,26 @@ function removeTodo({target}) {
     const noteIndex = currentProject.list.findIndex(note => note.id === id)
     currentProject.list.splice(noteIndex, 1)
     target.parentNode.parentNode.removeChild(target.parentNode)
+}
+
+function showDescription({target}) {
+    const { id } = target
+
+    const description = document.createElement('p')
+    description.textContent = `${id}`
+    description.classList.add('note-description')
+    target.parentNode.appendChild(description)
+
+    target.textContent = '-'
+    target.removeEventListener('click', showDescription)
+    target.addEventListener('click', hideDescription)
+}
+
+function hideDescription({target}) {
+    target.parentNode.removeChild(target.parentNode.lastChild)
+    target.textContent = '+'
+    target.removeEventListener('click', hideDescription)
+    target.addEventListener('click', showDescription)
 }
 
 export { todoCard, displayTodos }
