@@ -1,6 +1,7 @@
 import { showNoteForm } from './noteForm'
 import { showEditNote } from './editNote'
 import { currentProject } from './storage'
+import { sortByTitle, sortByTitleReverse } from './sort'
 
 function todoCard(todo) {
     const container = document.createElement('div')
@@ -53,14 +54,22 @@ function displayTodos(project) {
     todosTitle.id = 'notes-title'
     const todosSub = document.createElement('p')
     todosSub.id = 'notes-sub'
+    const titleSortButton = document.createElement('button')
+    titleSortButton.id = 'notes-sort-title'
+    const titleSortReverseButton = document.createElement('button')
+    titleSortButton.id = 'notes-sort-title-reverse'
     const todosButton = document.createElement('button')
     todosButton.id = 'notes-button'
     const notesContainer = document.createElement('section')
     notesContainer.id = 'notes-container'
 
+    titleSortButton.addEventListener('click', sortByTitle)
+    titleSortButton.textContent = 'A-Z v'
+    titleSortReverseButton.addEventListener('click', sortByTitleReverse)
+    titleSortReverseButton.textContent = 'A-Z ^'
     todosButton.addEventListener('click', showNoteForm)
     todosButton.textContent = 'Add'
-    todosHeader.append(todosTitle, todosSub, todosButton)
+    todosHeader.append(todosTitle, todosSub, titleSortButton, titleSortReverseButton, todosButton)
     todosTitle.textContent = `${currentProject.name} notes`
     todosSub.textContent = `${currentProject.description}`
     todosContainer.append(todosHeader, notesContainer)
