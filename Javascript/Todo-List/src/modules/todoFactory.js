@@ -1,8 +1,8 @@
 import createID from './createID'
 
-const todoFactory = (name, description, dueDate, priority) => {
+const todoFactory = (name, description, addedDate, dueDate, priority) => {
     const id = createID('note')
-    return { name, description, dueDate, priority, id }
+    return { name, description, addedDate, dueDate, priority, id }
 }
 
 function addTodo(todo, project) {

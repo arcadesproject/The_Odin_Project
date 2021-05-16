@@ -34,6 +34,102 @@ function sortByTitleReverse() {
     changeDisplay()
 }
 
+function sortDueDate() {
+    currentProject.list.sort(function(a, b) {
+        let dateA = a.dueDate 
+        let dateB = b.dueDate
+        if (dateA < dateB) {
+            return -1
+        }
+        if (dateA > dateB) {
+            return 1
+        }
+
+        return 0
+    })
+    changeDisplay()
+}
+
+function sortDueDateReverse() {
+    currentProject.list.sort(function(a, b) {
+        let dateA = a.dueDate 
+        let dateB = b.dueDate
+        if (dateA < dateB) {
+            return 1
+        }
+        if (dateA > dateB) {
+            return -1
+        }
+
+        return 0
+    })
+    changeDisplay()
+}
+
+function sortAddedDate() {
+    currentProject.list.sort(function(a, b) {
+        let dateA = a.dueDate 
+        let dateB = b.dueDate
+        if (dateA < dateB) {
+            return -1
+        }
+        if (dateA > dateB) {
+            return 1
+        }
+
+        return 0
+    })
+    changeDisplay()
+}
+
+function sortAddedDateReverse() {
+    currentProject.list.sort(function(a, b) {
+        let dateA = a.dueDate 
+        let dateB = b.dueDate
+        if (dateA < dateB) {
+            return 1
+        }
+        if (dateA > dateB) {
+            return -1
+        }
+
+        return 0
+    })
+    changeDisplay()
+}
+
+function sortPriority() {
+    currentProject.list.sort(function(a, b) {
+        let priorityA = a.priority
+        let priorityB = b.priority
+        if (priorityA < priorityB) {
+            return 1
+        }
+        if (priorityA > priorityB) {
+            return -1
+        }
+
+        return 0
+    })
+    changeDisplay()
+}
+
+function sortPriorityReverse() {
+    currentProject.list.sort(function(a, b) {
+        let priorityA = a.priority
+        let priorityB = b.priority
+        if (priorityA < priorityB) {
+            return -1
+        }
+        if (priorityA > priorityB) {
+            return 1
+        }
+
+        return 0
+    })
+    changeDisplay()
+}
+
 function changeDisplay() {
     const notesContainer = document.getElementById('notes-container')
     clearNotes(notesContainer)
@@ -46,4 +142,12 @@ function changeDisplay() {
     populateStorage()
 }
 
-export { sortByTitle, sortByTitleReverse }
+export { sortByTitle, 
+    sortByTitleReverse, 
+    sortDueDate, 
+    sortDueDateReverse,
+    sortAddedDate, 
+    sortAddedDateReverse,
+    sortPriority,
+    sortPriorityReverse    
+}

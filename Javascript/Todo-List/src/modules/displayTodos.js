@@ -1,7 +1,7 @@
 import { showNoteForm } from './noteForm'
 import { showEditNote } from './editNote'
-import { currentProject } from './storage'
-import { sortByTitle, sortByTitleReverse } from './sort'
+import { currentProject, populateStorage } from './storage'
+import { sortByTitle, sortByTitleReverse, sortDueDate, sortDueDateReverse, sortAddedDate, sortAddedDateReverse, sortPriority, sortPriorityReverse } from './sort'
 
 function todoCard(todo) {
     const container = document.createElement('div')
@@ -12,12 +12,26 @@ function todoCard(todo) {
     title.textContent = `${todo.name}`
     title.classList.add('note-title')
 
+    const addedDate = document.createElement('p')
+    addedDate.textContent = `${todo.addedDate}`
+    addedDate.classList.add('note-date-added')
+
     const dueDate = document.createElement('p')
     dueDate.textContent = `${todo.dueDate}`
     dueDate.classList.add('note-date')
 
-    const priority = document.createElement('p')
-    priority.textContent = `${todo.priority}`
+    const priority = document.createElement('div')
+    switch (todo.priority) {
+        case '3':
+            priority.classList.add(`high`)
+            break;
+        case '2':
+            priority.classList.add(`medium`)
+            break;
+        case '1':
+            priority.classList.add(`low`)
+            break;
+    }
     priority.classList.add('note-priority')
 
     const description = document.createElement('p')
@@ -41,7 +55,7 @@ function todoCard(todo) {
     removeButton.addEventListener('click', removeTodo)
     removeButton.classList.add('remove-note')
 
-    container.append(title, dueDate, priority, description, expandButton, editButton, removeButton)
+    container.append(title, addedDate, dueDate, priority, description, expandButton, editButton, removeButton)
     return container
 }
 
@@ -58,6 +72,18 @@ function displayTodos(project) {
     titleSortButton.id = 'notes-sort-title'
     const titleSortReverseButton = document.createElement('button')
     titleSortButton.id = 'notes-sort-title-reverse'
+    const sortDueDateButton = document.createElement('button')
+    sortDueDateButton.id = 'notes-sort-due-date'
+    const sortDueDateButtonReverse = document.createElement('button')
+    sortDueDateButtonReverse.id = 'notes-sort-due-date-reverse'
+    const sortAddedDateButton = document.createElement('button')
+    sortAddedDateButton.id = 'notes-sort-added-date'
+    const sortAddedDateButtonReverse = document.createElement('button')
+    sortAddedDateButtonReverse.id = 'notes-sort-added-date-reverse'
+    const sortPriorityButton = document.createElement('button')
+    sortPriorityButton.id = 'notes-sort-priority'
+    const sortPriorityReverseButton = document.createElement('button')
+    sortPriorityReverseButton.id = 'notes-sort-priority-reverse'
     const todosButton = document.createElement('button')
     todosButton.id = 'notes-button'
     const notesContainer = document.createElement('section')
@@ -67,9 +93,31 @@ function displayTodos(project) {
     titleSortButton.textContent = 'A-Z v'
     titleSortReverseButton.addEventListener('click', sortByTitleReverse)
     titleSortReverseButton.textContent = 'A-Z ^'
+    sortDueDateButton.addEventListener('click', sortDueDate)
+    sortDueDateButton.textContent = 'Due Date v'
+    sortDueDateButtonReverse.addEventListener('click', sortDueDateReverse)
+    sortDueDateButtonReverse.textContent = 'Due Date ^'
+    sortAddedDateButton.addEventListener('click', sortAddedDate)
+    sortAddedDateButton.textContent = 'Date Added v'
+    sortAddedDateButtonReverse.addEventListener('click', sortAddedDateReverse)
+    sortAddedDateButtonReverse.textContent = 'Date Added ^'
+    sortPriorityButton.addEventListener('click', sortPriority)
+    sortPriorityButton.textContent = 'Priority v'
+    sortPriorityReverseButton.addEventListener('click', sortPriorityReverse)
+    sortPriorityReverseButton.textContent = 'Priority ^'
     todosButton.addEventListener('click', showNoteForm)
     todosButton.textContent = 'Add'
-    todosHeader.append(todosTitle, todosSub, titleSortButton, titleSortReverseButton, todosButton)
+    todosHeader.append(todosTitle, 
+        todosSub, 
+        titleSortButton, 
+        titleSortReverseButton, 
+        sortDueDateButton, 
+        sortDueDateButtonReverse,
+        sortAddedDateButton, 
+        sortAddedDateButtonReverse,
+        sortPriorityButton,
+        sortPriorityReverseButton,
+        todosButton)
     todosTitle.textContent = `${currentProject.name} notes`
     todosSub.textContent = `${currentProject.description}`
     todosContainer.append(todosHeader, notesContainer)

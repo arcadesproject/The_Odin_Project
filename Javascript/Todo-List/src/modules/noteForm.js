@@ -1,6 +1,7 @@
 import { currentProject, populateStorage } from "./storage"
 import { addTodo, todoFactory } from "./todoFactory"
 import { todoCard } from './displayTodos'
+import { format } from 'date-fns'
 
 function noteForm() {
     const form = document.createElement('form')
@@ -29,10 +30,20 @@ function noteForm() {
     listDate.appendChild(dueDate)
 
     const listPriority = document.createElement('li')
-    const priority = document.createElement('input')
+    const priority = document.createElement('select')
     priority.id = 'note-form-priority'
     priority.required = true
     listPriority.appendChild(priority)
+    const high = document.createElement('option')
+    const medium = document.createElement('option')
+    const low = document.createElement('option')
+    high.value = '3'
+    medium.value = '2'
+    low.value = '1'
+    high.textContent = 'High'
+    medium.textContent = 'Medium'
+    low.textContent = 'Low'
+    priority.append(high, medium, low)
 
     const buttonSection = document.createElement('li')
     const submitForm = document.createElement('button')
@@ -57,7 +68,8 @@ function handleNoteSubmit(e) {
     const description = target[1].value
     const dueDate = target[2].value
     const priority = target[3].value
-    const note = todoFactory(title, description, dueDate, priority)
+    const addedDate = format(new Date(), 'yyyy-MM-dd')
+    const note = todoFactory(title, description, addedDate, dueDate, priority)
     addTodo(note, currentProject)
     const noteCard = todoCard(note)
     const notesContainer = document.getElementById('notes-container')
