@@ -4,6 +4,14 @@
     box-sizing: border-box;
 }
 
+button {
+    margin: 10px;
+}
+
+.project-title {
+    border: 2px solid black;
+}
+
 #content {
     display: flex;
     flex-direction: column;

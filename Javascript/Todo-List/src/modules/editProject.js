@@ -8,16 +8,22 @@ function editProjectForm(projectID) {
     const listContainer = document.createElement('ul')
 
     const listTitle = document.createElement('li')
+    const titleLabel = document.createElement('label')
+    titleLabel.textContent = 'Name: '
     const title = document.createElement('input')
     title.classList.add('project-form-edit-title')
+    title.maxLength = '30'
     title.required = true
-    listTitle.appendChild(title)
+    listTitle.append(titleLabel, title)
     
     const listDescription = document.createElement('li')
-    const description = document.createElement('input')
+    const descLabel = document.createElement('label')
+    descLabel.textContent = 'Description: '
+    const description = document.createElement('textarea')
     description.classList.add('project-form-edit-description')
+    description.maxLength = '300'
     description.required = true
-    listDescription.appendChild(description)
+    listDescription.append(descLabel, description)
 
     const buttonSection = document.createElement('li')
     const submitForm = document.createElement('button')
@@ -36,13 +42,13 @@ function editProjectForm(projectID) {
 }
 
 function showEditProject({target}) {
-    const projectID = target.parentNode.id
+    const projectID = target.parentNode.parentNode.id
     const projectIndex = projects.findIndex(project => project.id === projectID)
     const description = projects[projectIndex].description
     const main = document.getElementById('main')
     main.appendChild(editProjectForm(projectID))
 
-    const titleSection = target.parentNode.querySelector('.project-title')
+    const titleSection = target.parentNode.parentNode.querySelector('.project-title')
 
     const formTitle = document.querySelector('.project-form-edit-title')
     const formDescription = document.querySelector('.project-form-edit-description')
@@ -69,15 +75,18 @@ function handleEditProjectSubmit(e) {
     const notesTitle = document.getElementById('notes-title')
     const notesSub = document.getElementById('notes-sub')
 
-    if (currentProject.id === target.id) { 
-        notesTitle.textContent = `${title} notes`
-        notesSub.textContent = `${description}` 
-    }
-
     projectTitle.textContent = `${title}`
     
     changeProjectStorage(projectTitle, description, target.id)
     hideEditProject()
+
+    /////////////////////////////////////////
+    if (currentProject !== '') {
+        if (currentProject.id === target.id) { 
+            notesTitle.textContent = `${title} notes`
+            notesSub.textContent = `${description}` 
+        }
+    }
 }
 
 export { showEditProject }

@@ -1,6 +1,7 @@
 import { addProject } from "./projectFactory"
 import { projectCard } from './displayProjects'
 import { switchProjectDisplay } from "./switchProject"
+import { populateStorage } from './storage'
 
 function projectForm() {
     const form = document.createElement('form')
@@ -10,14 +11,19 @@ function projectForm() {
     const listContainer = document.createElement('ul')
 
     const listTitle = document.createElement('li')
+    const titleLabel = document.createElement('label')
+    titleLabel.textContent = 'Name: '
     const title = document.createElement('input')
+    title.maxLength = '30'
     title.required = true
-    listTitle.appendChild(title)
+    listTitle.append(titleLabel, title)
     
     const listDescription = document.createElement('li')
-    const description = document.createElement('input')
+    const descLabel = document.createElement('label')
+    descLabel.textContent = 'Description: '
+    const description = document.createElement('textarea')
     description.required = true
-    listDescription.appendChild(description)
+    listDescription.append(descLabel, description)
 
     const buttonSection = document.createElement('li')
     const submitForm = document.createElement('button')
@@ -43,7 +49,7 @@ function handleProjectSubmit(e) {
     const description = target[1].value
     const project = addProject(title, description)
     const projectBlock = projectCard(project)
-    projectBlock.addEventListener('click', switchProjectDisplay)
+    // projectBlock.addEventListener('click', switchProjectDisplay)
     const projectsList = document.getElementById('project-container')
     projectsList.prepend(projectBlock)
     hideProjectForm()

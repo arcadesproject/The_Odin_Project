@@ -8,7 +8,7 @@ import { addTodo, todoFactory } from './todoFactory'
 import { format } from 'date-fns'
 
 switchProject(projects[0])
-const testNote = todoFactory('Test', 'Just a test', format(new Date(), 'yyyy-MM-dd'), format(new Date(2022, 5, 6), 'yyyy-MM-dd'), '1')
+const testNote = todoFactory('Example Note', 'An example todo', format(new Date(), 'yyyy-MM-dd'), format(new Date(2022, 5, 6), 'yyyy-MM-dd'), '1')
 addTodo(testNote, currentProject)
 
 getLocalStorage()

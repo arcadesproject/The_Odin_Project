@@ -1,4 +1,4 @@
-import { currentProject, populateStorage } from "./storage"
+import { currentProject, populateStorage, projects } from "./storage"
 import { addTodo, todoFactory } from "./todoFactory"
 import { todoCard } from './displayTodos'
 import { format } from 'date-fns'
@@ -11,29 +11,38 @@ function noteForm() {
     const listContainer = document.createElement('ul')
 
     const listTitle = document.createElement('li')
+    const titleLabel = document.createElement('label')
+    titleLabel.textContent = 'Name: '
     const title = document.createElement('input')
     title.id = 'note-form-title'
+    title.maxLength = '30'
     title.required = true
-    listTitle.appendChild(title)
+    listTitle.append(titleLabel, title)
     
     const listDescription = document.createElement('li')
-    const description = document.createElement('input')
+    const descLabel = document.createElement('label')
+    descLabel.textContent = 'Description: '
+    const description = document.createElement('textarea')
     description.id = 'note-form-description'
     description.required = true
-    listDescription.appendChild(description)
+    listDescription.append(descLabel, description)
 
     const listDate = document.createElement('li')
+    const dueLabel = document.createElement('label')
+    dueLabel.textContent = 'Date Due: '
     const dueDate = document.createElement('input')
     dueDate.type = 'date'
     dueDate.id = 'note-form-date'
     dueDate.required = true
-    listDate.appendChild(dueDate)
+    listDate.append(dueLabel, dueDate)
 
     const listPriority = document.createElement('li')
+    const priorityLabel = document.createElement('label')
+    priorityLabel.textContent = 'Priority: '
     const priority = document.createElement('select')
     priority.id = 'note-form-priority'
     priority.required = true
-    listPriority.appendChild(priority)
+    listPriority.append(priorityLabel, priority)
     const high = document.createElement('option')
     const medium = document.createElement('option')
     const low = document.createElement('option')
@@ -71,6 +80,8 @@ function handleNoteSubmit(e) {
     const addedDate = format(new Date(), 'yyyy-MM-dd')
     const note = todoFactory(title, description, addedDate, dueDate, priority)
     addTodo(note, currentProject)
+    const index = projects.findIndex(project => project.id === currentProject.id)
+    projects.splice(index, 1, currentProject)    
     const noteCard = todoCard(note)
     const notesContainer = document.getElementById('notes-container')
     notesContainer.prepend(noteCard)

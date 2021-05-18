@@ -1,7 +1,7 @@
 import { projects, currentProject, populateStorage } from './storage'
 import { showProjectForm } from './projectForm'
 import { switchProjectDisplay } from './switchProject'
-import { todoCard } from './displayTodos'
+import { todoCard, displayTodos } from './displayTodos'
 import { showEditProject } from './editProject'
 
 function projectCard(project) {
@@ -18,6 +18,8 @@ function projectCard(project) {
     description.textContent = `${project.description}`
     description.classList.add('project-description')
 
+    const buttons = document.createElement('div')
+
     const editButton = document.createElement('button')
     editButton.textContent = 'edit'
     editButton.addEventListener('click', showEditProject)
@@ -28,7 +30,8 @@ function projectCard(project) {
     removeButton.id = `${project.id}`
     removeButton.addEventListener('click', removeProject)
     
-    container.append(title, editButton, removeButton)
+    buttons.append(editButton, removeButton)
+    container.append(title, buttons)
     return container
 }
 
@@ -62,11 +65,18 @@ function displayProjects() {
 }
 
 function removeProject({target}) {
-    const { id } = target.parentNode
+    const { id } = target.parentNode.parentNode
     const projectIndex = projects.findIndex(project => project.id === id)
-    target.parentNode.parentNode.removeChild(target.parentNode)
+    target.parentNode.parentNode.parentNode.removeChild(target.parentNode.parentNode)
     
-    if (projects[projectIndex] === currentProject) {
+    ////////////////////////////////////////////
+    if (!currentProject) {
+        projects.splice(projectIndex, 1)
+        populateStorage()
+        return
+    }
+
+    if (projects[projectIndex].id === currentProject.id) {
         projects.splice(projectIndex, 1)
         const notesContainer = document.getElementById('notes-container')
         const notesHeader = document.getElementById('notes-header')
@@ -74,16 +84,20 @@ function removeProject({target}) {
         notesHeader.innerHTML = ''
         if (projects.length > 0) {
             currentProject = projects[0]
-            const tempList = currentProject.list
-            console.log(projects)
-            if (tempList.length > 0 ) {
-                tempList.forEach(todo => {
-                const card = todoCard(todo)
-                notesContainer.appendChild(card)
-                })
-            }
+            // const tempList = currentProject.list
+            // if (tempList.length > 0 ) {
+            //     tempList.forEach(todo => {
+            //     const card = todoCard(todo)
+            //     notesContainer.appendChild(card)
+            //     })
+            // }
+            const notesSection = displayTodos(currentProject)
+            const main = document.getElementById('main')
+            main.removeChild(main.lastChild)
+            main.appendChild(notesSection)
         } else {
-            currentProject = null
+            //////////////////////////////////
+            currentProject = ''
             const notesHeader = document.getElementById('notes-header')
             notesHeader.innerHTML = ''
         } 

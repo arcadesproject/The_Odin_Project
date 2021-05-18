@@ -13,7 +13,6 @@ const addProject = (name, description) => {
     return project
 }
 
-addProject('test', 'testing')
-addProject('test2', 'testing')
+addProject('Example Project', 'Modify or add your own')
 
 export { addProject, projectFactory }

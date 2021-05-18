@@ -8,28 +8,48 @@ function editNoteForm(noteID) {
     const listContainer = document.createElement('ul')
 
     const listTitle = document.createElement('li')
+    const titleLabel = document.createElement('label')
+    titleLabel.textContent = 'Name: '
     const title = document.createElement('input')
     title.classList.add('note-form-edit-title')
+    title.maxLength = '30'
     title.required = true
-    listTitle.appendChild(title)
+    listTitle.append(titleLabel, title)
     
     const listDescription = document.createElement('li')
-    const description = document.createElement('input')
+    const descLabel = document.createElement('label')
+    descLabel.textContent = 'Description: '
+    const description = document.createElement('textarea')
     description.classList.add('note-form-edit-description')
     description.required = true
-    listDescription.appendChild(description)
+    listDescription.append(descLabel, description)
 
     const listDate = document.createElement('li')
+    const dueLabel = document.createElement('label')
+    dueLabel.textContent = 'Date Due: '
     const dueDate = document.createElement('input')
+    dueDate.type = 'date'
     dueDate.classList.add('note-form-edit-date')
     dueDate.required = true
-    listDate.appendChild(dueDate)
+    listDate.append(dueLabel, dueDate)
 
     const listPriority = document.createElement('li')
-    const priority = document.createElement('input')
+    const priorityLabel = document.createElement('label')
+    priorityLabel.textContent = 'Priority: '
+    const priority = document.createElement('select')
     priority.classList.add('note-form-edit-priority')
     priority.required = true
-    listPriority.appendChild(priority)
+    listPriority.append(priorityLabel, priority)
+    const high = document.createElement('option')
+    const medium = document.createElement('option')
+    const low = document.createElement('option')
+    high.value = '3'
+    medium.value = '2'
+    low.value = '1'
+    high.textContent = 'High'
+    medium.textContent = 'Medium'
+    low.textContent = 'Low'
+    priority.append(high, medium, low)
 
     const buttonSection = document.createElement('li')
     const submitForm = document.createElement('button')
@@ -64,8 +84,19 @@ function showEditNote({target}) {
 
     formTitle.value = `${titleSection.textContent}`
     formDate.value = `${dateSection.textContent}`
-    formPriority.value = `${prioritySection.textContent}`
     formDescription.value = `${descriptionSection.textContent}`
+
+    switch (prioritySection.classList[0]) {
+        case 'high':
+            formPriority[0].selected = 'selected'
+            break;
+        case 'medium':
+            formPriority[1].selected = 'selected'
+            break;
+        case 'low':
+            formPriority[2].selected = 'selected'
+            break;
+    }
 }
 
 function hideEditNote() {

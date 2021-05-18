@@ -118,17 +118,22 @@ function displayTodos(project) {
         sortPriorityButton,
         sortPriorityReverseButton,
         todosButton)
-    todosTitle.textContent = `${currentProject.name} notes`
-    todosSub.textContent = `${currentProject.description}`
-    todosContainer.append(todosHeader, notesContainer)
+    
+    ////////////////////////////////////////////////////
+    if (currentProject) {
+        todosTitle.textContent = `${currentProject.name} notes`
+        todosSub.textContent = `${currentProject.description}`
+        todosContainer.append(todosHeader, notesContainer)
 
-    const tempList = project.list
-    tempList.forEach(todo => {
-        const card = todoCard(todo)
-        notesContainer.appendChild(card)
-    })
+        const tempList = project.list
+        tempList.forEach(todo => {
+            const card = todoCard(todo)
+            notesContainer.appendChild(card)
+        })
+    }
 
     return todosContainer
+    
 }
 
 function removeTodo({target}) {
