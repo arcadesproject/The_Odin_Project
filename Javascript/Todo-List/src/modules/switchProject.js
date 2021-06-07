@@ -3,7 +3,6 @@ import { displayTodos } from './displayTodos'
 
 function switchProject(project) {
     currentProject = project
-    
 }
 
 function switchProjectDisplay({target}) {
@@ -14,14 +13,12 @@ function switchProjectDisplay({target}) {
     }
     switchProject(project)
     const notesContainer = document.getElementById('notes-container')
-    ///////////////////////////////
-    clearNotes(notesContainer)
+    if(notesContainer) { clearNotes(notesContainer) }
     const main = document.getElementById('main')
     main.removeChild(main.lastChild)
     const notesSection = displayTodos(project)
     main.appendChild(notesSection)
     populateStorage()
-    console.log(main)
 }
 
 function clearNotes(notesContainer) {

@@ -8,11 +8,12 @@ function projectCard(project) {
     const container = document.createElement('div')
     container.classList.add('project-card')
     container.id = `${project.id}`
+    container.addEventListener('click', switchProjectDisplay)
 
     const title = document.createElement('p')
     title.classList.add('project-title')
     title.textContent = `${project.name}`
-    title.addEventListener('click', switchProjectDisplay)
+    
     
     const description = document.createElement('p')
     description.textContent = `${project.description}`
@@ -100,6 +101,8 @@ function removeProject({target}) {
             currentProject = ''
             const notesHeader = document.getElementById('notes-header')
             notesHeader.innerHTML = ''
+            console.log('test')
+            /// when refresh the page and there is an empty project/ no project
         } 
     } else {
         projects.splice(projectIndex, 1)
