@@ -4,6 +4,15 @@
     box-sizing: border-box;
 }
 
+body {
+    background-color:rgba(13, 8, 34, 0.418);
+}
+
+#page-title {
+    font-size: 3em;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 #content {
     display: flex;
     flex-direction: column;
@@ -14,23 +23,46 @@
 
 #main {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     width: 90%;
+    max-width: 1200px;
     height: 85vh;
-    border: 1px solid black;
+    border: 4px solid rgba(0, 0, 0, 0.644);
+    border-radius: 10px;
 }
 
 /* Projects */
 
 #projects {
-    margin-top: 10px;
+    padding-top: 20px;
+    padding-right: 2%;
+    padding-left: 2%;
     width: 30%;
     overflow: auto;
     text-align: center;
+    border-right: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(41, 151, 151, 0.3);
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-right: 20px solid rgba(238, 0, 0, 0.63);
+}
+
+#projects-heading {
+    font-size: 2em;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .project-card {
-    border: 1px solid black;
+    border: 3px solid rgba(255, 255, 255, 0.479);
+    margin-top: 15px;
+    padding: 5px;
+    background-color: rgba(184, 197, 190, 0.3);
+    border-radius: 3px;
+    width: 250px;
+    min-width: 200px;
 }
 
 .project-card:hover {
@@ -39,36 +71,139 @@
 
 .project-title {
     user-select: none;
+    font-weight: normal;
+    font-size: 1.25em;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
+
+.project-buttons>button {
+    width: 80px;
+}
+
+#add-project {
+    background-color: rgba(35, 228, 35, 0.425);
+    width: 90px;
+    height: 35px;
+}
+
+#add-project:hover {
+    background-color: rgb(200, 232, 250);
+}
+
+.remove-project {
+    background-color: rgba(255, 0, 0, 0.89);
+}
+
 
 /* Notes */
 #notes {
-    margin-top: 10px;
-    width: 60%;
+    padding-top: 20px;
+    width: 70%;
     overflow: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(252, 255, 221, 0.521);
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+#notes-header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+#todos-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#todos-buttons>button {
+    width: 100px;
+}
+
+#add-note {
+    background-color: rgba(35, 228, 35, 0.425);
+}
+
+#add-note:hover {
+    background-color: rgb(200, 232, 250);
+}
+
+#notes-title {
+    font-size: 1.8em;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    padding: 5px;
+}
+
+#notes-container {
+    width: 99%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .todo-card {
-    border: 1px solid black;
+    margin-bottom: 5px;
+    background-color: rgba(214, 230, 233, 0.842);
+    border-radius: 10px;
+    padding: 10px;
+    width: 385px;
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: flex-start;
+}
+
+.note-title {
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
     margin-bottom: 5px;
 }
 
-.high {
-    width: 1.5vw;
-    height: 1.5vw;
-    background-color: red;
+.note-date {
+    display: flex;
 }
 
-.medium {
-    width: 1.5vw;
-    height: 1.5vw;
-    background-color: yellow;
+.note-date-added {
+    display: flex;
 }
 
-.low {
-    width: 1.5vw;
-    height: 1.5vw;
-    background-color: green;
+.note-description {
+    padding: 5px;
+}
+
+.dates {
+    display: flex;
+    justify-content: space-between;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.dates>div {
+    margin: 0 5px 0 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.dates>div>p:nth-child(2) {
+    padding-left: 3px;
+}
+
+.todo-card-buttons {
+    display: flex;
+    justify-content: center;
+}
+
+.todo-card-buttons>button {
+    width: 100px;
+}
+
+.remove-note {
+    background-color: rgba(255, 0, 0, 0.89);;
 }
 
 #footer {
@@ -76,14 +211,35 @@
 }
 
 form {
+    width: 300px;
     z-index: 3;
     position: absolute;
-    display: flex;
-    align-self: center;
-    margin-top: 30%;
+    /* display: flex; */
+    left: 50%;
+    margin-left: -150px;
+    margin-top: 20vh;
+    border: 1px solid black;
+    background-color: whitesmoke;
+    padding: 10px;
+}
+
+li {
+    list-style: none;
+    padding-top: 10px;
 }
 
 button {
     margin: 10px;
+    border: 2px solid rgba(0, 0, 0, 0.76);
+    padding: 3px;
+    border-radius: 4px;
+    font-weight: bold;
 }
+
+button:hover {
+    cursor: pointer;
+    background-color: rgb(200, 232, 250);
+}
+
+
 

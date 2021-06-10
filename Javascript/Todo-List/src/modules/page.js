@@ -16,7 +16,8 @@ getLocalStorage()
 function createHeader() {
     const header = document.createElement('header')
     const title = document.createElement('h1')
-    title.textContent = 'Todo-List'
+    title.textContent = 'Notes App - Todo-List'
+    title.id = 'page-title'
     header.appendChild(title)
     return header
 }

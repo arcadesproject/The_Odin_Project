@@ -1,6 +1,5 @@
 import { addProject } from "./projectFactory"
 import { projectCard } from './displayProjects'
-import { switchProjectDisplay } from "./switchProject"
 import { populateStorage } from './storage'
 
 function projectForm() {
@@ -49,7 +48,6 @@ function handleProjectSubmit(e) {
     const description = target[1].value
     const project = addProject(title, description)
     const projectBlock = projectCard(project)
-    // projectBlock.addEventListener('click', switchProjectDisplay)
     const projectsList = document.getElementById('project-container')
     projectsList.prepend(projectBlock)
     hideProjectForm()

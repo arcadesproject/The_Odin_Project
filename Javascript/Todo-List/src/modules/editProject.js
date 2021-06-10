@@ -41,7 +41,9 @@ function editProjectForm(projectID) {
     return form
 }
 
-function showEditProject({target}) {
+function showEditProject(e) {
+    e.stopPropagation()
+    const { target } = e
     const projectID = target.parentNode.parentNode.id
     const projectIndex = projects.findIndex(project => project.id === projectID)
     const description = projects[projectIndex].description
@@ -80,7 +82,6 @@ function handleEditProjectSubmit(e) {
     changeProjectStorage(projectTitle, description, target.id)
     hideEditProject()
 
-    /////////////////////////////////////////
     if (currentProject !== '') {
         if (currentProject.id === target.id) { 
             notesTitle.textContent = `${title} notes`

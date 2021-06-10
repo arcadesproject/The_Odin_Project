@@ -12,27 +12,41 @@ function todoCard(todo) {
     title.textContent = `${todo.name}`
     title.classList.add('note-title')
 
-    const addedDate = document.createElement('p')
-    addedDate.textContent = `${todo.addedDate}`
+    const addedDate = document.createElement('div')
+    const addText = document.createElement('p')
+    const dateAdd = document.createElement('p')
+    addText.textContent = `Date added: `
+    dateAdd.textContent = `${todo.addedDate}`
     addedDate.classList.add('note-date-added')
+    addedDate.append(addText, dateAdd)
 
-    const dueDate = document.createElement('p')
-    dueDate.textContent = `${todo.dueDate}`
+    const dueDate = document.createElement('div')
+    const dueText = document.createElement('p')
+    const dateDue = document.createElement('p')
+    dueText.textContent = `Date due: `
+    dateDue.textContent = `${todo.dueDate}`
     dueDate.classList.add('note-date')
+    dueDate.append(dueText, dateDue)
+    dateDue.classList.add('note-date-due')
 
-    const priority = document.createElement('div')
+    const dates = document.createElement('div')
+    dates.append(dueDate, addedDate)
+    dates.classList.add('dates')
+
     switch (todo.priority) {
         case '3':
-            priority.classList.add(`high`)
+            container.style.border = '4px solid rgb(235, 0, 0)'
+            container.dataset.priority = 'high'
             break;
         case '2':
-            priority.classList.add(`medium`)
+            container.style.border = '4px solid rgb(255, 233, 38)'
+            container.dataset.priority = 'medium'
             break;
         case '1':
-            priority.classList.add(`low`)
+            container.style.border = '4px solid rgb(34, 234, 18)'
+            container.dataset.priority = 'low'
             break;
     }
-    priority.classList.add('note-priority')
 
     const description = document.createElement('p')
     description.textContent = `${todo.description}`
@@ -40,22 +54,26 @@ function todoCard(todo) {
     description.style.display = 'none'
 
     const expandButton = document.createElement('button')
-    expandButton.textContent = '+'
+    expandButton.textContent = '+ Description'
     expandButton.addEventListener('click', showDescription)
     expandButton.classList.add('expand-note')
     expandButton.id = `${todo.description}`
 
     const editButton = document.createElement('button')
-    editButton.textContent = 'edit'
+    editButton.textContent = 'Edit'
     editButton.addEventListener('click', showEditNote)
     editButton.classList.add('edit-note')
 
     const removeButton = document.createElement('button')
-    removeButton.textContent = 'del'
+    removeButton.textContent = 'Delete'
     removeButton.addEventListener('click', removeTodo)
     removeButton.classList.add('remove-note')
 
-    container.append(title, addedDate, dueDate, priority, description, expandButton, editButton, removeButton)
+    const todoCardButtons = document.createElement('div')
+    todoCardButtons.classList.add('todo-card-buttons')
+    todoCardButtons.append(expandButton, editButton, removeButton)
+
+    container.append(title, dates, description, todoCardButtons)
     return container
 }
 
@@ -107,8 +125,10 @@ function displayTodos(project) {
     sortPriorityReverseButton.textContent = 'Priority ^'
     todosButton.addEventListener('click', showNoteForm)
     todosButton.textContent = 'Add'
-    todosHeader.append(todosTitle, 
-        todosSub, 
+    todosButton.id = 'add-note'
+    const todoButtonGroup = document.createElement('div')
+    todoButtonGroup.id = 'todos-buttons'
+    todoButtonGroup.append(        
         titleSortButton, 
         titleSortReverseButton, 
         sortDueDateButton, 
@@ -118,6 +138,11 @@ function displayTodos(project) {
         sortPriorityButton,
         sortPriorityReverseButton,
         todosButton)
+    todosHeader.append(
+        todosTitle, 
+        todosSub, 
+        todoButtonGroup
+    )
     
     ////////////////////////////////////////////////////
     if (currentProject) {
@@ -145,16 +170,16 @@ function removeTodo({target}) {
 }
 
 function showDescription({target}) {
-    const description = target.parentNode.querySelector('.note-description')
+    const description = target.parentNode.parentNode.querySelector('.note-description')
     description.style.display = 'block'
-    target.textContent = '-'
+    target.textContent = '- Description'
     target.removeEventListener('click', showDescription)
     target.addEventListener('click', hideDescription)
 }
 
 function hideDescription({target}) {
-    target.parentNode.querySelector('.note-description').style.display = 'none'
-    target.textContent = '+'
+    target.parentNode.parentNode.querySelector('.note-description').style.display = 'none'
+    target.textContent = '+ Description'
     target.removeEventListener('click', hideDescription)
     target.addEventListener('click', showDescription)
 }

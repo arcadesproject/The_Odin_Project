@@ -9,7 +9,7 @@ function changeNoteStorage(title, description, date, priority, noteID) {
     projects[projectIndex].list[noteIndex].title = title.innerText
     projects[projectIndex].list[noteIndex].description = description.innerText
     projects[projectIndex].list[noteIndex].dueDate = date.innerText
-    projects[projectIndex].list[noteIndex].priority = priority.innerText
+    projects[projectIndex].list[noteIndex].priority = priority
     
     currentProject = projects[projectIndex]
     populateStorage()
@@ -20,7 +20,6 @@ function changeProjectStorage(title, description, projectID) {
     projects[projectIndex].name = title.innerText
     projects[projectIndex].description = description
 
-    currentProject = projects[projectIndex]
     populateStorage()
 }
 

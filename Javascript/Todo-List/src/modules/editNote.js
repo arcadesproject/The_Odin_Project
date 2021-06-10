@@ -68,14 +68,16 @@ function editNoteForm(noteID) {
 }
 
 function showEditNote({target}) {
-    const noteID = target.parentNode.id
+    const noteID = target.parentNode.parentNode.id
     const main = document.getElementById('main')
     main.appendChild(editNoteForm(noteID))
 
-    const titleSection = target.parentNode.querySelector('.note-title')
-    const dateSection = target.parentNode.querySelector('.note-date')
-    const prioritySection = target.parentNode.querySelector('.note-priority')
-    const descriptionSection = target.parentNode.querySelector('.note-description')
+    const titleSection = target.parentNode.parentNode.querySelector('.note-title')
+    const dates = target.parentNode.parentNode.querySelector('.dates')
+    const dateSection = dates.querySelector('.note-date')
+    const dueDate = dateSection.querySelector('.note-date-due')
+    const container = target.parentNode.parentNode
+    const descriptionSection = target.parentNode.parentNode.querySelector('.note-description')
 
     const formTitle = document.querySelector('.note-form-edit-title')
     const formDate = document.querySelector('.note-form-edit-date')
@@ -83,10 +85,10 @@ function showEditNote({target}) {
     const formDescription = document.querySelector('.note-form-edit-description')
 
     formTitle.value = `${titleSection.textContent}`
-    formDate.value = `${dateSection.textContent}`
+    formDate.value = `${dueDate.textContent}`
     formDescription.value = `${descriptionSection.textContent}`
 
-    switch (prioritySection.classList[0]) {
+    switch (container.dataset.priority) {
         case 'high':
             formPriority[0].selected = 'selected'
             break;
@@ -116,15 +118,28 @@ function handleEditNoteSubmit(e) {
     const container = document.getElementById(`${target.id}`)
     const noteTitle = container.querySelector('.note-title')
     const noteDescription = container.querySelector('.note-description')
-    const noteDate = container.querySelector('.note-date')
-    const notePriority = container.querySelector('.note-priority')
+    const noteDate = container.querySelector('.note-date-due')
 
     noteTitle.textContent = `${title}`
     noteDescription.textContent = `${description}`
     noteDate.textContent = `${dueDate}`
-    notePriority.textContent = `${priority}`
 
-    changeNoteStorage(noteTitle, noteDescription, noteDate, notePriority, target.id)
+    switch (priority) {
+        case '3':
+            container.style.border = '4px solid rgb(235, 0, 0)'
+            container.dataset.priority = 'high'
+            break;
+        case '2':
+            container.style.border = '4px solid rgb(255, 233, 38)'
+            container.dataset.priority = 'medium'
+            break;
+        case '1':
+            container.style.border = '4px solid rgb(34, 234, 18)'
+            container.dataset.priority = 'low'
+            break;
+    }
+
+    changeNoteStorage(noteTitle, noteDescription, noteDate, priority, target.id)
     hideEditNote()
 }
 
