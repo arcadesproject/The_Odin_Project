@@ -321,3 +321,20 @@ button:hover {
     justify-content: center;
 }
 
+/* Footer */
+
+footer {
+    background-color: rgb(140, 177, 177);
+    width: 100%;
+    height: 4vh;
+    display: flex;
+    border-top: 1px solid black;
+    align-items: baseline;
+    justify-content: space-around;
+    padding-top: 4px;
+    word-spacing: 2px;
+}
+
+#git {
+    height: 25px;
+}

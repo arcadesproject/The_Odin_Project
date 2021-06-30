@@ -31,7 +31,15 @@ function createMain() {
 
 function createFooter() {
     const footer = document.createElement('footer')
-    footer.textContent = 'footer'
+
+    const creator = document.createElement('p')
+    const source = document.createElement('p')
+    source.id = 'source'
+
+    creator.innerHTML = `Made by <a href="https://github.com/arcadesproject"> arcadesproject<img id="git" alt="github icon" src="../src/assets/git.png"></a>`
+    source.innerHTML = `<a href="https://github.com/arcadesproject/The_Odin_Project/tree/main/Javascript/Todo-List"> source`
+
+    footer.append(creator, source)
     return footer
 }
 
