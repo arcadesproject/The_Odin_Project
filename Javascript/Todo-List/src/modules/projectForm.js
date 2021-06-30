@@ -35,6 +35,10 @@ function projectForm() {
 
     form.addEventListener('submit', handleProjectSubmit)
 
+    listTitle.className = 'project-form-list-title'
+    listDescription.className = 'project-form-list-description'
+    buttonSection.className = 'project-form-buttons'
+
     listContainer.append(listTitle, listDescription, buttonSection)
 
     form.appendChild(listContainer)

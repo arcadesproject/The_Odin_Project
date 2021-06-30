@@ -61,6 +61,11 @@ function editNoteForm(noteID) {
     cancelForm.textContent = 'Cancel'
     buttonSection.append(submitForm, cancelForm)
 
+    listTitle.className = 'note-form-list-title'
+    listDescription.className = 'note-form-list-description'
+    listPriority.className = 'note-form-list-priority'
+    buttonSection.className = 'note-form-buttons'
+
     form.addEventListener('submit', handleEditNoteSubmit)
     listContainer.append(listTitle, listDescription, listDate, listPriority, buttonSection)
     form.appendChild(listContainer)

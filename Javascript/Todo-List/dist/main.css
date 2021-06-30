@@ -36,7 +36,7 @@ body {
 #blur {
     height: 100vh;
     width: 100%;
-    background-color:rgba(131, 131, 131, 0.753);
+    background-color:rgba(131, 131, 131, 0.884);
     display: none;
     z-index: 2;
     position: absolute;
@@ -222,21 +222,59 @@ body {
 }
 
 form {
-    width: 300px;
+    width: 350px;
+    min-height: 300px;
     z-index: 3;
     position: absolute;
     display: flex;
+    flex-direction: column;
     left: 50%;
     margin-left: -150px;
     margin-top: 20vh;
-    border: 1px solid black;
+    border: 3px solid black;
+    border-radius: 5px;;
     background-color: whitesmoke;
-    padding: 10px;
+    padding: 20px;
 }
 
 li {
     list-style: none;
     padding-top: 10px;
+}
+
+form>ul>li>label {
+    width: 100px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+form>ul>li>input {
+    width: 180px;
+    padding-left: 2px;
+    border: 1px solid black;
+    height: 30px;
+}
+
+form>ul>li>textarea {
+    width: 180px;
+    padding-left: 2px;
+    padding-top: 5px;
+    border: 1px solid black;
+    height: 75px;
+}
+
+form>ul>li>select {
+    padding-left: 40px;
+    margin-right: 2%;
+    margin-left: 2%;
+    border: 1px solid black;
+}
+
+form>ul>li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 60px;
+    margin-bottom: 10px;
 }
 
 button {
@@ -252,5 +290,34 @@ button:hover {
     background-color: rgb(200, 232, 250);
 }
 
+.project-form-list-description {
+    display: flex;
+    align-items: center;
+}
 
+.project-form-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.note-form-list-description {
+    display: flex;
+    align-items: center;
+}
+
+.note-form-list-priority {
+    display: flex;
+    justify-content: left;
+}
+
+.note-form-list-priority>* {
+    flex: 1 2;
+}
+
+.note-form-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 

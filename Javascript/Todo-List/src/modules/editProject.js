@@ -39,6 +39,10 @@ function editProjectForm(projectID) {
     listContainer.append(listTitle, listDescription, buttonSection)
     form.appendChild(listContainer)
 
+    listTitle.className = 'project-form-list-title'
+    listDescription.className = 'project-form-list-description'
+    buttonSection.className = 'project-form-buttons'
+
     return form
 }
 
