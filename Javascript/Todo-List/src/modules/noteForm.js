@@ -2,11 +2,11 @@ import { currentProject, populateStorage, projects } from "./storage"
 import { addTodo, todoFactory } from "./todoFactory"
 import { todoCard } from './displayTodos'
 import { format } from 'date-fns'
+import { blur, noBlur } from './blur'
 
 function noteForm() {
     const form = document.createElement('form')
     form.id = 'note-form'
-    form.style.display = 'none'
 
     const listContainer = document.createElement('ul')
 
@@ -90,18 +90,16 @@ function handleNoteSubmit(e) {
 }
 
 function showNoteForm() {
-    const form = document.getElementById('note-form')
-    form.style.display = 'flex'
+    const main = document.getElementById('main')
+    main.appendChild(noteForm())
+    blur()
 }
 
 function hideNoteForm() {
-    const form = document.getElementById('note-form')
-    form.style.display = 'none'
-    resetForm(form)
+    const noteForm = document.getElementById('note-form')
+    const main = document.getElementById('main')
+    main.removeChild(noteForm)
+    noBlur()
 }
 
-function resetForm(form) {
-    form.reset()
-}
-
-export { noteForm, showNoteForm, hideNoteForm}
+export { noteForm, showNoteForm, hideNoteForm }

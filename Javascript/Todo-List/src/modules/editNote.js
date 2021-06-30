@@ -1,4 +1,5 @@
 import { currentProject, projects, changeNoteStorage } from './storage'
+import { blur, noBlur } from './blur'
 
 function editNoteForm(noteID) {
     const form = document.createElement('form')
@@ -99,12 +100,14 @@ function showEditNote({target}) {
             formPriority[2].selected = 'selected'
             break;
     }
+    blur()
 }
 
 function hideEditNote() {
     const editForm = document.querySelector('.note-form-edit')
     const main = document.getElementById('main')
     main.removeChild(editForm)
+    noBlur()
 }
 
 function handleEditNoteSubmit(e) {

@@ -1,11 +1,11 @@
 import { addProject } from "./projectFactory"
 import { projectCard } from './displayProjects'
 import { populateStorage } from './storage'
+import { blur, noBlur } from './blur'
 
 function projectForm() {
     const form = document.createElement('form')
     form.id = 'project-form'
-    form.style.display = 'none'
 
     const listContainer = document.createElement('ul')
 
@@ -55,14 +55,16 @@ function handleProjectSubmit(e) {
 }
 
 function showProjectForm() {
-    const form = document.getElementById('project-form')
-    form.style.display = 'flex'
+    const main = document.getElementById('main')
+    main.appendChild(projectForm())
+    blur()
 }
 
 function hideProjectForm() {
-    const form = document.getElementById('project-form')
-    form.style.display = 'none'
-    form.reset()
+    const projectForm = document.getElementById('project-form')
+    const main = document.getElementById('main')
+    main.removeChild(projectForm)
+    noBlur()
 }
 
 export { projectForm, showProjectForm, hideProjectForm }

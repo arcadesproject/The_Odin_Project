@@ -35,9 +35,15 @@ function createFooter() {
     return footer
 }
 
+function createBlur() {
+    const blur = document.createElement('div')
+    blur.id = 'blur'
+    return blur
+}
+
 function page() {
     const content = document.getElementById('content')
-    content.append(createHeader(), createMain(), createFooter(), noteForm(), projectForm())
+    content.append(createHeader(), createMain(), createFooter(), createBlur())
 }
 
 export default page

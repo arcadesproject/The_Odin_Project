@@ -1,4 +1,5 @@
 import { currentProject, changeProjectStorage, projects } from './storage'
+import { blur, noBlur } from './blur'
 
 function editProjectForm(projectID) {
     const form = document.createElement('form')
@@ -57,12 +58,14 @@ function showEditProject(e) {
 
     formTitle.value = `${titleSection.textContent}`
     formDescription.value = `${description}`
+    blur()
 }
 
 function hideEditProject() {
     const editProject = document.querySelector('.project-form-edit')
     const main = document.getElementById('main')
     main.removeChild(editProject)
+    noBlur()
 }
 
 function handleEditProjectSubmit(e) {
