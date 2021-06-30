@@ -81,7 +81,7 @@ const setScore = (computer, player) => {
     playerScoreText.textContent = `Player Score: ${player}`
 };
 
-const setTally = (computer, player) => {
+const setTally = (player, computer) => {
     const playerTallyText = document.getElementById('playerTally')
     const compTallyText = document.getElementById('compTally')
     playerTallyText.textContent = `Player Tally: ${player}`
