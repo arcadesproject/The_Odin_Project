@@ -1,13 +1,12 @@
 function blur() {
-    //change layer on top of background
-    const blur = document.getElementById('blur')
-    blur.style.display = 'block'
-    console.log('test')
+  // change layer on top of background
+  const layer = document.getElementById('blur');
+  layer.style.display = 'block';
 }
 
 function noBlur() {
-    const blur = document.getElementById('blur')
-    blur.style.display = 'none'
+  const layer = document.getElementById('blur');
+  layer.style.display = 'none';
 }
 
-export { blur, noBlur }
+export { blur, noBlur };
