@@ -5,7 +5,10 @@ const projectFactory = (name, description) => {
   const list = [];
   const id = createID('project');
   return {
-    name, description, list, id,
+    name,
+    description,
+    list,
+    id,
   };
 };
 

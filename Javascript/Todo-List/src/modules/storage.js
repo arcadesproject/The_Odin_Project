@@ -2,6 +2,29 @@ let projects = [];
 
 let currentProject;
 
+function setProjects() {
+  projects = JSON.parse(localStorage.getItem('projects'));
+}
+
+function setCurrentProject() {
+  currentProject = JSON.parse(localStorage.getItem('currentProject'));
+}
+
+function populateStorage() {
+  localStorage.setItem('projects', JSON.stringify(projects));
+  localStorage.setItem('currentProject', JSON.stringify(currentProject));
+  setProjects();
+}
+
+function getLocalStorage() {
+  if (!localStorage.getItem('projects')) {
+    populateStorage();
+  } else {
+    setProjects();
+    setCurrentProject();
+  }
+}
+
 function changeNoteStorage(title, description, date, priority, noteID) {
   const projectIndex = projects.findIndex((project) => project.name === currentProject.name);
   const noteIndex = projects[projectIndex].list.findIndex((note) => note.id === noteID);
@@ -23,30 +46,11 @@ function changeProjectStorage(title, description, projectID) {
   populateStorage();
 }
 
-function getLocalStorage() {
-  if (!localStorage.getItem('projects')) {
-    populateStorage();
-  } else {
-    setProjects();
-    setCurrentProject();
-  }
-}
-
-function setProjects() {
-  projects = JSON.parse(localStorage.getItem('projects'));
-}
-
-function setCurrentProject() {
-  currentProject = JSON.parse(localStorage.getItem('currentProject'));
-}
-
-function populateStorage() {
-  localStorage.setItem('projects', JSON.stringify(projects));
-  localStorage.setItem('currentProject', JSON.stringify(currentProject));
-  setProjects();
-}
-
 export {
-  projects, currentProject, changeNoteStorage,
-  changeProjectStorage, getLocalStorage, populateStorage,
+  projects,
+  currentProject,
+  changeNoteStorage,
+  changeProjectStorage,
+  getLocalStorage,
+  populateStorage,
 };

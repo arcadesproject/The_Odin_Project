@@ -73,7 +73,9 @@ function removeProject(e) {
   const { target } = e;
   const { id } = target.parentNode.parentNode;
   const projectIndex = projects.findIndex((project) => project.id === id);
-  target.parentNode.parentNode.parentNode.removeChild(target.parentNode.parentNode);
+  target.parentNode.parentNode.parentNode.removeChild(
+    target.parentNode.parentNode,
+  );
 
   /// /////////////////////////////////////////
   if (!currentProject) {

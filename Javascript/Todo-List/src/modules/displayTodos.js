@@ -2,9 +2,14 @@ import { showNoteForm } from './noteForm';
 import showEditNote from './editNote';
 import { currentProject, populateStorage } from './storage';
 import {
-  sortByTitle, sortByTitleReverse, sortDueDate,
-  sortDueDateReverse, sortAddedDate, sortAddedDateReverse,
-  sortPriority, sortPriorityReverse,
+  sortByTitle,
+  sortByTitleReverse,
+  sortDueDate,
+  sortDueDateReverse,
+  sortAddedDate,
+  sortAddedDateReverse,
+  sortPriority,
+  sortPriorityReverse,
 } from './sort';
 
 function todoCard(todo) {
@@ -145,11 +150,7 @@ function displayTodos(project) {
     sortPriorityReverseButton,
     todosButton,
   );
-  todosHeader.append(
-    todosTitle,
-    todosSub,
-    todoButtonGroup,
-  );
+  todosHeader.append(todosTitle, todosSub, todoButtonGroup);
 
   /// /////////////////////////////////////////////////
   if (currentProject) {
@@ -171,12 +172,15 @@ function removeTodo({ target }) {
   const { id } = target.parentNode;
   const noteIndex = currentProject.list.findIndex((note) => note.id === id);
   currentProject.list.splice(noteIndex, 1);
-  target.parentNode.parentNode.removeChild(target.parentNode);
+  target.parentNode.parentNode.parentNode.removeChild(
+    target.parentNode.parentNode,
+  );
   populateStorage();
 }
 
 function showDescription({ target }) {
-  const description = target.parentNode.parentNode.querySelector('.note-description');
+  const description =
+    target.parentNode.parentNode.querySelector('.note-description');
   description.style.display = 'block';
   target.textContent = '- Description';
   target.removeEventListener('click', showDescription);
@@ -184,7 +188,9 @@ function showDescription({ target }) {
 }
 
 function hideDescription({ target }) {
-  target.parentNode.parentNode.querySelector('.note-description').style.display = 'none';
+  target.parentNode.parentNode.querySelector(
+    '.note-description',
+  ).style.display = 'none';
   target.textContent = '+ Description';
   target.removeEventListener('click', hideDescription);
   target.addEventListener('click', showDescription);

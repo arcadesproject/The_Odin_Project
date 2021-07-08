@@ -13,7 +13,9 @@ function switchProjectDisplay({ target }) {
   }
   switchProject(project);
   const notesContainer = document.getElementById('notes-container');
-  if (notesContainer) { clearNotes(notesContainer); }
+  if (notesContainer) {
+    clearNotes(notesContainer);
+  }
   const main = document.getElementById('main');
   main.removeChild(main.lastChild);
   const notesSection = displayTodos(project);

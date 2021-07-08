@@ -3,7 +3,12 @@ import createID from './createID';
 const todoFactory = (name, description, addedDate, dueDate, priority) => {
   const id = createID('note');
   return {
-    name, description, addedDate, dueDate, priority, id,
+    name,
+    description,
+    addedDate,
+    dueDate,
+    priority,
+    id,
   };
 };
 
