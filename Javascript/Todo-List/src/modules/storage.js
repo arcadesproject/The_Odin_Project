@@ -47,5 +47,6 @@ function populateStorage() {
 }
 
 export {
-  projects, currentProject, changeNoteStorage, changeProjectStorage, getLocalStorage, populateStorage,
+  projects, currentProject, changeNoteStorage,
+  changeProjectStorage, getLocalStorage, populateStorage,
 };

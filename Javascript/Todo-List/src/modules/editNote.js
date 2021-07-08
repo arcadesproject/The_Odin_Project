@@ -1,4 +1,4 @@
-import { currentProject, projects, changeNoteStorage } from './storage';
+import { changeNoteStorage } from './storage';
 import { blur, noBlur } from './blur';
 
 function editNoteForm(noteID) {
@@ -104,6 +104,8 @@ function showEditNote({ target }) {
     case 'low':
       formPriority[2].selected = 'selected';
       break;
+    default:
+      break;
   }
   blur();
 }
@@ -145,10 +147,12 @@ function handleEditNoteSubmit(e) {
       container.style.border = '4px solid rgb(34, 234, 18)';
       container.dataset.priority = 'low';
       break;
+    default:
+      break;
   }
 
   changeNoteStorage(noteTitle, noteDescription, noteDate, priority, target.id);
   hideEditNote();
 }
 
-export { showEditNote };
+export default showEditNote;

@@ -6,7 +6,7 @@ function switchProject(project) {
 }
 
 function switchProjectDisplay({ target }) {
-  const project = projects.find((project) => project.id === target.parentNode.id);
+  const project = projects.find((proj) => proj.id === target.parentNode.id);
   /// ///////////////////////////////
   if (project.id === currentProject.id) {
     return;

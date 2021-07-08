@@ -97,4 +97,4 @@ function handleEditProjectSubmit(e) {
   }
 }
 
-export { showEditProject };
+export default showEditProject;

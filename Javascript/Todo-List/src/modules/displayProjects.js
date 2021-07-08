@@ -2,7 +2,7 @@ import { projects, currentProject, populateStorage } from './storage';
 import { showProjectForm } from './projectForm';
 import { switchProjectDisplay } from './switchProject';
 import { displayTodos } from './displayTodos';
-import { showEditProject } from './editProject';
+import showEditProject from './editProject';
 
 function projectCard(project) {
   const container = document.createElement('div');
@@ -89,7 +89,8 @@ function removeProject(e) {
     notesContainer.innerHTML = '';
     notesHeader.innerHTML = '';
     if (projects.length > 0) {
-      currentProject = projects[0];
+      const [one] = projects;
+      currentProject = one;
       const notesSection = displayTodos(currentProject);
       const main = document.getElementById('main');
       main.removeChild(main.lastChild);
@@ -97,8 +98,6 @@ function removeProject(e) {
     } else {
       /// ///////////////////////////////
       currentProject = '';
-      const notesHeader = document.getElementById('notes-header');
-      notesHeader.innerHTML = '';
     }
   } else {
     projects.splice(projectIndex, 1);

@@ -101,9 +101,9 @@ function showNoteForm() {
 }
 
 function hideNoteForm() {
-  const noteForm = document.getElementById('note-form');
+  const noteFormElement = document.getElementById('note-form');
   const main = document.getElementById('main');
-  main.removeChild(noteForm);
+  main.removeChild(noteFormElement);
   noBlur();
 }
 

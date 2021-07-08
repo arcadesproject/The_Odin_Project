@@ -1,8 +1,10 @@
 import { showNoteForm } from './noteForm';
-import { showEditNote } from './editNote';
+import showEditNote from './editNote';
 import { currentProject, populateStorage } from './storage';
 import {
-  sortByTitle, sortByTitleReverse, sortDueDate, sortDueDateReverse, sortAddedDate, sortAddedDateReverse, sortPriority, sortPriorityReverse,
+  sortByTitle, sortByTitleReverse, sortDueDate,
+  sortDueDateReverse, sortAddedDate, sortAddedDateReverse,
+  sortPriority, sortPriorityReverse,
 } from './sort';
 
 function todoCard(todo) {
@@ -47,6 +49,8 @@ function todoCard(todo) {
     case '1':
       container.style.border = '4px solid rgb(34, 234, 18)';
       container.dataset.priority = 'low';
+      break;
+    default:
       break;
   }
 
