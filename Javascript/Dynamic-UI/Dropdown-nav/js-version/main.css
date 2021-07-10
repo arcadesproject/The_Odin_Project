@@ -1,0 +1,56 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+}
+
+/* need to position relative for li so dropdowns dispay */
+li {
+  position: relative;
+  text-align: center;
+  list-style: none;
+}
+
+/* flex needed so dropdown takes parent sizing properly */
+ul {
+  list-style: none;
+  display: flex;
+}
+
+#flex-container {
+  display: flex;
+  justify-content: space-around;
+  border: 1px solid black;
+  width: 80vw;
+  height: 10vh;
+  min-height: 80px;
+}
+
+nav > ul > li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  border: 1px solid black;
+}
+
+.dropdown {
+  display: none;
+  position: absolute;
+  flex-direction: column;
+  width: 90%;
+  top: 100%;
+  margin-top: 1px;
+  border: 2px solid black;
+}
+
+.dropdown > li {
+  height: 30px;
+  border: 1px solid black;
+}
