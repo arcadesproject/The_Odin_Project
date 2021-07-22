@@ -1,0 +1,34 @@
+.tabs .primary {
+  display: flex;
+}
+.tabs .primary > li {
+  flex-grow: 1;
+  min-width: 100px;
+}
+
+.tabs:not(.jsfied) {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.tabs {
+  position: relative;
+}
+.tabs .secondary {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+}
+.tabs.showsecondary .secondary {
+  display: block;
+}
+
+.tabs .hidden {
+  display: none;
+}
+
+li {
+  list-style: none;
+  user-select: none;
+}
