@@ -1,74 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Library</title>
     <script src="main.js" defer></script>
-    <link rel="stylesheet" href="main.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
-    <link rel="icon" href="assets/book.svg">
-</head>
-<body>
+    <link rel="stylesheet" href="main.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+    />
+    <link rel="icon" href="assets/book.svg" />
+  </head>
+  <body>
     <div id="container">
-        <div id="top">
-            <span class="material-icons-outlined" id="new">
-                add_circle
-            </span>
-            <header id="heading">
-                <h1>Your Library</h1>
-            </header>
+      <div id="top">
+        <span class="material-icons-outlined" id="new"> add_circle </span>
+        <header id="heading">
+          <h1>Your Library</h1>
+        </header>
+      </div>
+
+      <section id="cards"></section>
+
+      <form id="add-book" method="post">
+        <input name="title" type="text" id="title" maxlength="50" placeholder="Title" required />
+        <input name="author" type="text" id="author" maxlength="50" placeholder="Author" required />
+        <div id="form-section">
+          <input
+            name="pages"
+            type="number"
+            id="pages"
+            max="9999"
+            min="1"
+            placeholder="50"
+            required
+          />
+          <label>Pages?</label>
+          <input name="read" type="checkbox" id="read" />
+          <label>Read?</label>
         </div>
-        
-        <section id="cards">
-
-        </section>
-
-        <form id="add-book" method="post">
-            <input 
-                name="title" 
-                type="text" 
-                id="title" 
-                maxlength="50" 
-                placeholder="Title" 
-                required
-            />  
-            <input 
-                name="author" 
-                type="text" 
-                id="author" 
-                maxlength="50" 
-                placeholder="Author" 
-                required 
-            />
-            <div id="form-section">
-                <input 
-                    name="pages" 
-                    type="number" 
-                    id="pages" 
-                    max="9999" 
-                    min="1" 
-                    placeholder="50" 
-                    required 
-                />
-                <label>Pages?</label>
-                <input 
-                    name="read" 
-                    type="checkbox" 
-                    id="read"/>
-                <label>Read?</label>
-            </div>
-            <div id="submit-section">
-                <input 
-                    name="submit" 
-                    type="submit" 
-                    id="submit" 
-                    value="Submit" 
-                />
-                <button id="close">Cancel</button>
-            </div>
-        </form>
+        <div id="submit-section">
+          <input name="submit" type="submit" id="submit" value="Submit" />
+          <button id="close">Cancel.</button>
+        </div>
+      </form>
     </div>
-</body>
+  </body>
 </html>
