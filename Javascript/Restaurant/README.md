@@ -7,3 +7,5 @@ Simple webpage for a fake restaurant.
 Using webpack to improve ability with a modular structure.
 
 Tabbed pages.
+
+Added babel loader https://github.com/babel/babel-loader
