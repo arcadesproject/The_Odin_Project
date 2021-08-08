@@ -10,12 +10,129 @@
   </head>
   <body>
     <section id="container">
-      <form>
-        <input type="email" />
-        <input type="" />
-        <input type="" />
-        <input type="password" />
-        <input type="password" />
+      <!-- novalidate turns off automatic browser messages etc, let js take over
+            can still use css pseudoclasses e.g. :valid 
+          without novalidate can use title="" to add extra message to standard one
+          but use validity API in js with it
+          -->
+      <form action="#" novalidate>
+        <fieldset>
+          <legend align="center">User details</legend>
+          <!-- label can be before or around input, less flexible when around -->
+          <fieldset>
+            <p>
+              <span>Do you have a driver's license?</span>
+            </p>
+            <p>
+              <!-- Radio inputs having the same name="driver" means only one can be selected at a time -->
+              <label for="driver"
+                >Yes<input
+                  id="driver"
+                  name="driver"
+                  type="radio"
+                  checked="true"
+                  value="yes"
+                  required
+                />
+              </label>
+              <label for="driver2"
+                >No<input id="driver2" name="driver" type="radio" value="no" required />
+              </label>
+            </p>
+          </fieldset>
+          <label for="mail">
+            <span>Email:<abbr title="This field is mandatory" aria-label="required">*</abbr></span>
+            <p>
+              <input autofocus id="mail" type="email" name="mail" minlength="6" required />
+              <!-- to trigger error message in main.js -->
+              <!-- polite so doesn't take control of user rather than assertive -->
+              <!-- aria-live read on screenreaders etc. -->
+              <span class="error" aria-live="polite"></span>
+            </p>
+          </label>
+          <label for="country">
+            <span>Country:</span>
+            <input type="text" />
+          </label>
+          <label for="zipcode">
+            <span
+              >Zipcode:<abbr title="This field is mandatory" aria-label="required">*</abbr>
+            </span>
+            <p>
+              <input
+                id="zipcode"
+                type="text"
+                pattern="[0-9]*"
+                minlength="4"
+                maxlength="6"
+                required
+              />
+              <span class="error" aria-live="polite"></span>
+            </p>
+          </label>
+          <label for="age">
+            <span>Age:<abbr title="This field is mandatory" aria-label="required">*</abbr></span>
+            <p>
+              <input
+                id="age"
+                name="age"
+                type="number"
+                min="13"
+                max="120"
+                step="1"
+                pattern="1[3-9]|[2-9][0-9]|1[0-1][0-9]|120"
+                required
+              />
+              <span class="error" aria-live="polite"></span>
+            </p>
+          </label>
+          <label for="fruit">
+            <span>Fav fruit:</span>
+            <!-- need the list="" to match the datalist id="" -->
+            <input
+              type="text"
+              list="listOne"
+              pattern="[Bb]anana|[Cc]herry|[Aa]pple|[Ss]trawberry|[Ll]emon|[Oo]range"
+            />
+            <datalist id="listOne">
+              <option value="Banana"></option>
+              <option>Cherry</option>
+              <option>Apple</option>
+              <option>Strawberry</option>
+              <option>Lemon</option>
+              <option>Orange</option>
+            </datalist>
+          </label>
+          <label for="pwd">
+            <span
+              >Password:<abbr title="This field is mandatory" aria-label="required">*</abbr></span
+            >
+            <!-- requires number, lowercase, uppercase 8-32 length -->
+            <p>
+              <input
+                id="pwd"
+                name="pwd"
+                type="password"
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,32}"
+                title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters"
+                autocomplete="new-password"
+                required
+              />
+              <span class="error" aria-live="polite"></span>
+            </p>
+          </label>
+          <label for="passwordConfirm">
+            <span>Confirm Password:</span>
+            <p>
+              <input type="text" id="passwordConfirm" required />
+              <span class="error" aria-live="polite"></span>
+            </p>
+          </label>
+          <label for="text">Message:</label>
+          <textarea id="text" name="msg" maxlength="140" rows="5"></textarea>
+          <button type="submit">Submit</button>
+          <input type="hidden" id="timestamp" name="timestamp" value="1286705410" />
+        </fieldset>
       </form>
     </section>
   </body>
