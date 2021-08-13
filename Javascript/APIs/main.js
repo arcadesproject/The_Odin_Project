@@ -23,22 +23,21 @@ const search = document.getElementById('search');
 // }
 
 async function newImg(input = 'error 404') {
-  const response = await fetch(
-    `https://api.giphy.com/v1/gifs/translate?api_key=AnQ1mlCxEbQt1XqjwPTGTIIZK8MQhfQu&s=${input}`,
-    {
-      mode: 'cors',
-    },
-  );
-  const data = await response
-    .json()
-    .then(function (response) {
+  try {
+    const response = await fetch(
+      `https://api.giphy.com/v1/gifs/translate?api_key=AnQ1mlCxEbQt1XqjwPTGTIIZK8MQhfQu&s=${input}`,
+      {
+        mode: 'cors',
+      },
+    );
+    const data = await response.json().then(function (response) {
       img.src = response.data.images.original.url;
       img.dataset.info = `${input}`;
-    })
-    .catch(function (error) {
-      newImg();
-      console.log(error);
     });
+  } catch (error) {
+    newImg();
+    console.log(error);
+  }
 }
 
 button.addEventListener('click', function () {
