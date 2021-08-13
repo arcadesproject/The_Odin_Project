@@ -30,10 +30,9 @@ async function newImg(input = 'error 404') {
         mode: 'cors',
       },
     );
-    const data = await response.json().then(function (response) {
-      img.src = response.data.images.original.url;
-      img.dataset.info = `${input}`;
-    });
+    const data = await response.json();
+    img.src = data.data.images.original.url;
+    img.dataset.info = `${input}`;
   } catch (error) {
     newImg();
     console.log(error);
