@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+    <script src="main.js" defer></script>
+    <link rel="stylesheet" href="main.css" />
+  </head>
+  <body>
+    <header id="header">
+      <form id="place">
+        <label for="search"><input id="search" type="search" /></label>
+        <button id="submit" type="submit">Submit</button>
+      </form>
+    </header>
+    <section id="current">
+      <div id="error">Invalid search</div>
+      <div id="today">
+        <img id="icon" src="" />
+        <div id="today-container">
+          <div id="name"></div>
+          <div id="time"></div>
+          <div id="description"></div>
+          <div id="temp"></div>
+          <div id="hilo">
+            <div id="hi"></div>
+            <div id="lo"></div>
+          </div>
+          <div id="feels"></div>
+        </div>
+      </div>
+    </section>
+    <section id="hours"></section>
+    <section id="extra"></section>
+    <section id="forecast"></section>
+  </body>
+</html>
