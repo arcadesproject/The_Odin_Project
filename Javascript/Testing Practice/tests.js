@@ -36,4 +36,17 @@ function caesar(string, shift) {
     .join('');
 }
 
-module.exports = { capitalize, reverseString, calculator, caesar };
+function analyzeArray(array) {
+  const length = array.length;
+  const average = array.reduce((a, b) => a + b) / length;
+  const min = Math.min(...array);
+  const max = Math.max(...array);
+  return {
+    average,
+    min,
+    max,
+    length,
+  };
+}
+
+module.exports = { capitalize, reverseString, calculator, caesar, analyzeArray };

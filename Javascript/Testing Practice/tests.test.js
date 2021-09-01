@@ -4,6 +4,7 @@ const capitalize = tests.capitalize;
 const reverseString = tests.reverseString;
 const calculator = tests.calculator;
 const caesar = tests.caesar;
+const analyzeArray = tests.analyzeArray;
 
 test('takes a string and returns that string with the first character capitalized', () => {
   expect(capitalize('test sentence.')).toMatch('Test sentence.');
@@ -38,5 +39,14 @@ describe('caesar cipher tests', () => {
   });
   test('High number shift', () => {
     expect(caesar('heLlO TEsTZ', 131)).toMatch('ifMmP UFtUA');
+  });
+});
+
+test('takes an array and returns object with min, max, average and length', () => {
+  expect(analyzeArray([1, 2, 3, 4, 5])).toEqual({
+    average: 3,
+    min: 1,
+    max: 5,
+    length: 5,
   });
 });
