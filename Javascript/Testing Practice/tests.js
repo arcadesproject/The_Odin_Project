@@ -6,7 +6,7 @@ function reverseString(string) {
   return string.split('').reverse().join('');
 }
 
-calculator = {
+const calculator = {
   add: (a, b) => a + b,
   subtract: (a, b) => a - b,
   divide: (a, b) => a / b,
@@ -49,4 +49,4 @@ function analyzeArray(array) {
   };
 }
 
-module.exports = { capitalize, reverseString, calculator, caesar, analyzeArray };
+export { capitalize, reverseString, calculator, caesar, analyzeArray };

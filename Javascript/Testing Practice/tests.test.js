@@ -1,10 +1,11 @@
-const { expect, test } = require('@jest/globals');
-const tests = require('./tests');
-const capitalize = tests.capitalize;
-const reverseString = tests.reverseString;
-const calculator = tests.calculator;
-const caesar = tests.caesar;
-const analyzeArray = tests.analyzeArray;
+// import { expect, test } from jest
+import { capitalize, reverseString, calculator, caesar, analyzeArray } from './tests';
+// const tests = require('./tests');
+// const capitalize = tests.capitalize;
+// const reverseString = tests.reverseString;
+// const calculator = tests.calculator;
+// const caesar = tests.caesar;
+// const analyzeArray = tests.analyzeArray;
 
 test('takes a string and returns that string with the first character capitalized', () => {
   expect(capitalize('test sentence.')).toMatch('Test sentence.');
