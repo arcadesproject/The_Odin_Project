@@ -1,11 +1,15 @@
 import React, { Component } from 'react'
 
+const ErrorComponent = () => <div>{ignore}</div>
+
 class Counter extends Component {
     constructor(props) {
         console.log('Constructor')
         super(props)
         this.state = {
-            counter: 0
+            counter: 0,
+            seed: 0,
+            initializing: true,
         }
     }
 
@@ -23,7 +27,11 @@ class Counter extends Component {
     }
 
     componentDidMount() {
+        //initial requests, fetch data, network calls etc useful here
         console.log('Component Did Mount')
+        setTimeout(() => {
+            this.setState({initializing: false})
+        }, 500);
         console.log('-------------------')
     }
 
@@ -35,9 +43,27 @@ class Counter extends Component {
         return true
     }
 
+    getSnapshotBeforeUpdate(prevProps, prevState) {
+        //listviews, DOM etc pass to componentDidUpdate before updating
+        console.log('Get Snapshot Before Update')
+        return null
+    }
+
 
     render() {
         console.log('Render')
+
+        if(this.props.showErroComponent && this.state.error) {
+            return <div>We have encountered an error! {this.state.error.message}</div>
+        }
+
+        if(this.state.initializing) {
+            return <div>Initializing...</div>
+        }
+
+        if(this.props.showErrorComponent && this.state.error) {
+            return <div>We have encountered an error! {this.state.error.message}</div>
+        }
 
         return (
             <div>
@@ -46,6 +72,7 @@ class Counter extends Component {
                 <div className="counter">
                     Counter: {this.state.counter}
                 </div>
+                {this.props.showErrorComponent ? <ErrorComponent /> : null}
             </div>
         )
     }
@@ -56,8 +83,14 @@ class Counter extends Component {
     }
 
     componentWillUnmount() {
-        console.log('Componetn Will Unmount')
+        console.log('Component Will Unmount')
         console.log('----------------------')
+    }
+
+    componentDidCatch(error, info) {
+        console.log('Component Did Catch')
+
+        this.setState({error, info})
     }
 
 }
