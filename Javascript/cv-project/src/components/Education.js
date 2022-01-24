@@ -1,59 +1,69 @@
 function Education(props) {
-  const {
-    school,
-    subject,
-    start,
-    end,
-    handleInput,
-    onEducationSubmit,
-    switchEducation,
-    education,
-    remove,
-  } = props;
+  const { switchEducation, addEducation, handleEducationInput, deleteEducation, education } = props;
 
-  return (
-    <>
-      {education.submit ? (
+  const educationItems = education.map((val) => (
+    <section key={val.id}>
+      {val.form ? (
+        <form data-value={val.id} onSubmit={switchEducation}>
+          <li>
+            <label>School: </label>
+            <input
+              type="text"
+              name="school"
+              onChange={handleEducationInput}
+              value={val.school}></input>
+          </li>
+          <li>
+            <label>Subject: </label>
+            <input
+              type="text"
+              name="subject"
+              onChange={handleEducationInput}
+              value={val.subject}></input>
+          </li>
+          <li>
+            <label>Date Started:</label>
+            <input
+              type="date"
+              name="educationStart"
+              onChange={handleEducationInput}
+              value={val.educationStart}></input>
+          </li>
+          <li>
+            <label>Date Completed:</label>
+            <input
+              type="date"
+              name="educationEnd"
+              onChange={handleEducationInput}
+              value={val.educationEnd}></input>
+          </li>
+          <li>
+            <input name="educationSubmit" type="submit" value="Submit" />
+          </li>
+        </form>
+      ) : (
         <ul>
-          <li>{education.school}</li>
-          <li>{education.subject}</li>
-          <li>{education.start}</li>
-          <li>{education.end}</li>
-          <button onClick={switchEducation} data-value={education.id}>
+          <li>School: {val.school}</li>
+          <li>Subject: {val.subject}</li>
+          <li>Date Started: {val.educationStart}</li>
+          <li>Date Completed: {val.educationEnd}</li>
+          <button onClick={switchEducation} data-value={val.id}>
             Edit
           </button>
-          <button onClick={remove} data-value={education.id} data-group="education">
+          <button onClick={deleteEducation} data-value={val.id}>
             Delete
           </button>
         </ul>
-      ) : (
-        <form id={education.id} onSubmit={onEducationSubmit}>
-          <ul>
-            <li>
-              <label>School:</label>
-              <input name="school" type="text" onChange={handleInput} value={school}></input>
-            </li>
-            <li>
-              <label>Subject:</label>
-              <input name="subject" type="text" onChange={handleInput} value={subject}></input>
-            </li>
-            <li>
-              <label>Start:</label>
-              <input name="start" type="date" onChange={handleInput} value={start}></input>
-            </li>
-            <li>
-              <label>End:</label>
-              <input name="end" type="date" onChange={handleInput} value={end}></input>
-            </li>
-            <li>
-              <input type="submit" value="Submit"></input>
-              <button onClick={switchEducation} data-value={education.id}>
-                Cancel
-              </button>
-            </li>
-          </ul>
-        </form>
       )}
+    </section>
+  ));
+
+  return (
+    <>
+      <section>
+        <button onClick={addEducation}>Add Education</button>
+        {educationItems}
+      </section>
     </>
   );
 }
