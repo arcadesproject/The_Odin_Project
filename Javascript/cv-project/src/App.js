@@ -1,171 +1,143 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import uniqid from 'uniqid';
 import General from './components/General';
 import Education from './components/Education';
 import Career from './components/Career';
 
-class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      generalForm: false,
-      name: '',
-      email: '',
-      phone: '',
-      education: [],
-      career: [],
-    };
-  }
+const App = () => {
+  const [generalForm, setGeneralForm] = useState(false);
+  const [general, setGeneral] = useState({
+    name: '',
+    email: '',
+    phone: '',
+  });
+
+  const [education, setEducation] = useState([]);
+  const [career, setCareer] = useState([]);
 
   // Functions for the general section. Update state info / view
 
-  onGeneralSubmit = (e) => {
+  const onGeneralSubmit = (e) => {
     e.preventDefault();
-    this.switchGeneral();
+    switchGeneral();
   };
 
-  switchGeneral = () => {
-    this.setState({ generalForm: !this.state.generalForm });
+  const switchGeneral = () => {
+    setGeneralForm(!generalForm);
   };
 
-  handleGeneralInput = (e) => {
+  const handleGeneralInput = (e) => {
     const { target } = e;
     const value = target.value;
     const name = target.name;
-    this.setState({
-      [name]: value,
-    });
+    setGeneral({ ...general, [name]: [value] });
   };
 
   // Functions for education section
 
-  addEducation = () => {
+  const addEducation = () => {
     const key = uniqid();
-    this.setState({
-      education: [
-        ...this.state.education,
-        {
-          form: true,
-          id: key,
-          school: '',
-          subject: '',
-          educationStart: '',
-          educationEnd: '',
-        },
-      ],
-    });
+    setEducation([
+      ...education,
+      {
+        form: true,
+        id: key,
+        school: '',
+        subject: '',
+        educationStart: '',
+        educationEnd: '',
+      },
+    ]);
   };
 
-  switchEducation = (e) => {
+  const switchEducation = (e) => {
     e.preventDefault();
     const id = e.target.dataset.value;
-    this.setState((prevState) => ({
-      education: prevState.education.map((val) =>
-        val.id === id ? { ...val, form: !val.form } : val,
-      ),
-    }));
+    setEducation(education.map((val) => (val.id === id ? { ...val, form: !val.form } : val)));
   };
 
-  handleEducationInput = (e) => {
+  const handleEducationInput = (e) => {
     const { target } = e;
     const id = e.target.parentElement.parentElement.dataset.value;
     const value = target.value;
     const name = target.name;
-    this.setState((prevState) => ({
-      education: prevState.education.map((val) =>
-        val.id === id ? { ...val, [name]: [value] } : val,
-      ),
-    }));
+    setEducation(education.map((val) => (val.id === id ? { ...val, [name]: [value] } : val)));
   };
 
-  deleteEducation = (e) => {
+  const deleteEducation = (e) => {
     const { target } = e;
     const id = target.dataset.value;
-    this.setState((prevState) => ({
-      education: prevState.education.filter((item) => item.id !== id),
-    }));
+    setEducation(education.filter((item) => item.id !== id));
   };
 
   // career functions
 
-  addCareer = () => {
+  const addCareer = () => {
     const key = uniqid();
-    this.setState({
-      career: [
-        ...this.state.career,
-        {
-          form: true,
-          id: key,
-          company: '',
-          role: '',
-          jobStart: '',
-          jobEnd: '',
-        },
-      ],
-    });
+    setCareer([
+      ...career,
+      {
+        form: true,
+        id: key,
+        company: '',
+        role: '',
+        jobStart: '',
+        jobEnd: '',
+      },
+    ]);
   };
 
-  switchCareer = (e) => {
+  const switchCareer = (e) => {
     e.preventDefault();
     const id = e.target.dataset.value;
-    this.setState((prevState) => ({
-      career: prevState.career.map((val) => (val.id === id ? { ...val, form: !val.form } : val)),
-    }));
+    setCareer(career.map((val) => (val.id === id ? { ...val, form: !val.form } : val)));
   };
 
-  handleCareerInput = (e) => {
+  const handleCareerInput = (e) => {
     const { target } = e;
     const id = e.target.parentElement.parentElement.parentElement.dataset.value;
     const value = target.value;
     const name = target.name;
-    this.setState((prevState) => ({
-      career: prevState.career.map((val) => (val.id === id ? { ...val, [name]: [value] } : val)),
-    }));
+    setCareer(career.map((val) => (val.id === id ? { ...val, [name]: [value] } : val)));
   };
 
-  deleteCareer = (e) => {
+  const deleteCareer = (e) => {
     const { target } = e;
     const id = target.dataset.value;
-    this.setState((prevState) => ({
-      career: prevState.career.filter((item) => item.id !== id),
-    }));
+    setCareer(career.filter((item) => item.id !== id));
   };
 
-  render() {
-    const { generalForm, name, email, phone, education, career } = this.state;
-
-    return (
-      <div className="App">
-        <header>CV Creator</header>
-        <h2>General Information</h2>
-        <General
-          onGeneralSubmit={this.onGeneralSubmit}
-          switchGeneral={this.switchGeneral}
-          handleGeneralInput={this.handleGeneralInput}
-          generalForm={generalForm}
-          name={name}
-          email={email}
-          phone={phone}
-        />
-        <h2>Education</h2>
-        <Education
-          addEducation={this.addEducation}
-          switchEducation={this.switchEducation}
-          handleEducationInput={this.handleEducationInput}
-          deleteEducation={this.deleteEducation}
-          education={education}
-        />
-        <h2>Career</h2>
-        <Career
-          addCareer={this.addCareer}
-          switchCareer={this.switchCareer}
-          handleCareerInput={this.handleCareerInput}
-          deleteCareer={this.deleteCareer}
-          career={career}
-        />
-      </div>
-    );
-  }
-}
+  return (
+    <div className="App">
+      <header>CV Creator</header>
+      <h2>General Information</h2>
+      <General
+        onGeneralSubmit={onGeneralSubmit}
+        switchGeneral={switchGeneral}
+        handleGeneralInput={handleGeneralInput}
+        generalForm={generalForm}
+        name={general.name}
+        email={general.email}
+        phone={general.phone}
+      />
+      <h2>Education</h2>
+      <Education
+        addEducation={addEducation}
+        switchEducation={switchEducation}
+        handleEducationInput={handleEducationInput}
+        deleteEducation={deleteEducation}
+        education={education}
+      />
+      <h2>Career</h2>
+      <Career
+        addCareer={addCareer}
+        switchCareer={switchCareer}
+        handleCareerInput={handleCareerInput}
+        deleteCareer={deleteCareer}
+        career={career}
+      />
+    </div>
+  );
+};
 
 export default App;
