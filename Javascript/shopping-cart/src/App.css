@@ -1,0 +1,20 @@
+.navbar {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.nav-container {
+  display: flex;
+  border: 1px solid black;
+  justify-content: space-around;
+  align-items: center;
+  height: 5vw;
+  list-style: none;
+}
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border: 1px solid black;
+}
