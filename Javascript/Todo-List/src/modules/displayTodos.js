@@ -1,6 +1,6 @@
 import { showNoteForm } from './noteForm';
 import showEditNote from './editNote';
-import { currentProject, populateStorage } from './storage';
+import { projects, currentProject, populateStorage } from './storage';
 import {
   sortByTitle,
   sortByTitleReverse,
@@ -11,6 +11,16 @@ import {
   sortPriority,
   sortPriorityReverse,
 } from './sort';
+
+function removeTodo({ target }) {
+  const { id } = target.parentNode.parentNode;
+  const noteIndex = currentProject.list.findIndex((note) => note.id === id);
+  currentProject.list.splice(noteIndex, 1);
+  target.parentNode.parentNode.parentNode.removeChild(target.parentNode.parentNode);
+  const projectIndex = projects.findIndex((proj) => currentProject.id === proj.id);
+  projects.splice(projectIndex, 1, currentProject);
+  populateStorage();
+}
 
 function todoCard(todo) {
   const container = document.createElement('div');
@@ -168,19 +178,8 @@ function displayTodos(project) {
   return todosContainer;
 }
 
-function removeTodo({ target }) {
-  const { id } = target.parentNode;
-  const noteIndex = currentProject.list.findIndex((note) => note.id === id);
-  currentProject.list.splice(noteIndex, 1);
-  target.parentNode.parentNode.parentNode.removeChild(
-    target.parentNode.parentNode,
-  );
-  populateStorage();
-}
-
 function showDescription({ target }) {
-  const description =
-    target.parentNode.parentNode.querySelector('.note-description');
+  const description = target.parentNode.parentNode.querySelector('.note-description');
   description.style.display = 'block';
   target.textContent = '- Description';
   target.removeEventListener('click', showDescription);
@@ -188,9 +187,7 @@ function showDescription({ target }) {
 }
 
 function hideDescription({ target }) {
-  target.parentNode.parentNode.querySelector(
-    '.note-description',
-  ).style.display = 'none';
+  target.parentNode.parentNode.querySelector('.note-description').style.display = 'none';
   target.textContent = '+ Description';
   target.removeEventListener('click', hideDescription);
   target.addEventListener('click', showDescription);

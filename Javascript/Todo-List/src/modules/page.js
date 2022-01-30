@@ -41,7 +41,9 @@ function createFooter() {
   source.id = 'source';
 
   creator.innerHTML =
-    'Made by <a href="https://github.com/arcadesproject"> arcadesproject<img id="git" alt="github icon" src="../src/assets/git.png"></a>';
+    // 'Made by <a href="https://github.com/arcadesproject"> arcadesproject<img id="git" alt="github icon" src="../src/assets/git.png"></a>';
+    'Made by <a href="https://github.com/arcadesproject"> arcadesproject<img id="git" alt="github icon" src="https://firebasestorage.googleapis.com/v0/b/to-do-list-odin.appspot.com/o/git.png?alt=media&token=cffaf542-ed44-4439-b85b-203d0e00b36a"></a>';
+
   source.innerHTML =
     '<a href="https://github.com/arcadesproject/The_Odin_Project/tree/main/Javascript/Todo-List"> source';
 
