@@ -1,3 +1,4 @@
+import Header from './components/Header';
 import Picture from './components/Picture';
 import CharBanner from './components/CharBanner';
 import CharSelection from './components/CharSelection';
@@ -57,19 +58,23 @@ const App = () => {
   const [time, setTime] = useState(0);
   const [finalTime, setFinalTime] = useState(0);
 
+  //show/remove character selection choice list
   const switchList = () => {
     setShowList(!showList);
   };
 
+  //when answer is correct set found value on character object to true
   const handleAnswer = (character) => {
     const name = character;
     setCharacters(characters.map((c) => (c.name === name ? { ...c, found: !c.found } : c)));
   };
 
+  //start the game, starts clock, allows handleclick etc.
   const startGame = () => {
     setStart(true);
   };
 
+  //reset all values, clock and so on
   const reset = () => {
     setCharacters(
       characters.map((c) => {
@@ -81,6 +86,7 @@ const App = () => {
     endGame();
   };
 
+  //ends game, but retains values to show time won, div saying you won
   const endGame = () => {
     setAnswer(null);
     setShowList(false);
@@ -88,6 +94,7 @@ const App = () => {
     setStart(false);
   };
 
+  //click on main image when game started, title is from area html attribute
   const handleClick = (e) => {
     const { title } = e.target.dataset;
     if (start) {
@@ -97,6 +104,7 @@ const App = () => {
     }
   };
 
+  //check to see if the name and location matches object, checked popup right/wrong
   const checkAnswer = (e) => {
     const { target } = e;
     if (answer === target.textContent) {
@@ -106,15 +114,17 @@ const App = () => {
     setChecked(true);
   };
 
+  //coords to position answer list usefully
   const getCoords = (e) => {
     setXY({ x: e.pageX, y: e.pageY });
   };
 
+  //so can display the time the game was completed in
   const storeWinTime = useCallback(() => {
     setFinalTime(time);
   }, [time]);
 
-  //function to say if correct or not
+  //reset answer and checked values when checked state changes
   useEffect(() => {
     setTimeout(() => {
       setAnswer(null);
@@ -122,6 +132,9 @@ const App = () => {
     }, 1000);
   }, [checked]);
 
+  //check if game is won everytime a character state is changed
+  //it will be the found attribute
+  //then ends game if all characters have found: true
   useEffect(() => {
     const result = characters.every((item) => item.found === true);
     storeWinTime();
@@ -133,6 +146,7 @@ const App = () => {
     }, 1800);
   }, [characters, storeWinTime]);
 
+  //starts timer once user had clicked to start or restart
   useEffect(() => {
     let interval = null;
     if (start) {
@@ -147,6 +161,8 @@ const App = () => {
     };
   }, [start]);
 
+  //convert seconds to hours: minutes: seconds
+  //could probably use date-fns
   const convertTime = (seconds) => {
     var h = Math.floor(seconds / 3600)
         .toString()
@@ -163,23 +179,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <h2>Where's Wally?</h2>
-        <div>
-          <div className="header-btn-div">
-            {!start && (
-              <button className="header-btn" onClick={startGame}>
-                Start
-              </button>
-            )}
-          </div>
-        </div>
-        <div className="header-btn-div">
-          <button className="header-btn" onClick={reset}>
-            Reset
-          </button>
-        </div>
-      </header>
+      <Header start={start} startGame={startGame} reset={reset} />
       <CharBanner characters={characters} time={time} convertTime={convertTime} />
       <Picture
         characters={characters}
@@ -188,8 +188,11 @@ const App = () => {
         handleClick={handleClick}
         start={start}
       />
+      {/* character list toggle */}
       {showList && <CharSelection characters={characters} checkAnswer={checkAnswer} xy={xy} />}
+      {/* popup div after an answer is checked */}
       {checked && <Found answer={answer} />}
+      {/* popup when user wins */}
       {won && (
         <Win
           won={won}
