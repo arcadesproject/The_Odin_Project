@@ -3,63 +3,59 @@ import giants from '../assets/images/giants.jpg';
 const Picture = (props) => {
   const { handleClick } = props;
 
-  const changeCursor = () => {
-    //change shape, size etc.
-  };
-
-  const revertCursor = () => {
-    //change back to default
-  };
-
   return (
-    <>
-      <img
-        onMouseEnter={changeCursor}
-        onMouseLeave={revertCursor}
-        onClick={handleClick}
-        className="main-img"
-        id="pic-test"
-        src={giants}
-        alt="Wally Giants"
-        useMap="#wallymap"
-      />
-      <map name="wallymap">
-        <area
-          shape="circle"
-          coords="640, 1502, 50"
-          alt="Wally"
-          title="Wally"
+    <div className="picture-div">
+      <section className="img-container">
+        <map name="wallymap">
+          <area
+            shape="circle"
+            coords="552, 1290, 50"
+            alt="Wally"
+            data-title="Wally"
+            onClick={handleClick}
+          />
+          <area
+            shape="circle"
+            coords="74, 1437, 50"
+            alt="Woof"
+            data-title="Woof"
+            onClick={handleClick}
+          />
+          <area
+            shape="circle"
+            coords="2950, 1498, 50"
+            alt="Wizard"
+            data-title="Wizard"
+            onClick={handleClick}
+          />
+          <area
+            shape="circle"
+            coords="2125, 1555, 50"
+            alt="Wilma"
+            data-title="Wilma"
+            onClick={handleClick}
+          />
+          <area
+            shape="circle"
+            coords="1805, 1760, 50"
+            alt="Odlaw"
+            data-title="Odlaw"
+            onClick={handleClick}
+          />
+        </map>
+        <img
+          // onMouseEnter={changeCursor}
+          // onMouseLeave={revertCursor}
           onClick={handleClick}
+          className="main-img"
+          id="pic-test"
+          src={giants}
+          alt="Wally Giants"
+          useMap="#wallymap"
         />
-        <area
-          shape="circle"
-          coords="87, 1665, 50"
-          alt="Woof"
-          title="Woof"
-          onClick={handleClick}></area>
-        <area
-          shape="circle"
-          coords="3417, 1737, 50"
-          alt="Wizard"
-          title="Wizard"
-          onClick={handleClick}></area>
-        <area
-          shape="circle"
-          coords="2462, 1802, 50"
-          alt="Wilma"
-          title="Wilma"
-          onClick={handleClick}></area>
-        <area
-          shape="circle"
-          coords="2092, 2032, 50"
-          alt="Odlaw"
-          title="Odlaw"
-          onClick={handleClick}></area>
-      </map>
-    </>
+      </section>
+    </div>
   );
 };
 
 export default Picture;
-
-//need popup that shows just to right/bottom of click (tooltip?) and only displays remaining choices - array

@@ -1,8 +1,10 @@
 import Picture from './components/Picture';
-import Characters from './components/Characters';
+import CharBanner from './components/CharBanner';
 import CharSelection from './components/CharSelection';
+import Found from './components/Found';
+import Win from './components/Win';
 import uniqid from 'uniqid';
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 // const getXY = (e) => {
 //   const { target } = e;
@@ -41,13 +43,19 @@ import { useState } from 'react';
 const App = () => {
   const [characters, setCharacters] = useState([
     { name: 'Wally', id: uniqid(), found: false },
-    { name: 'Wizard', id: uniqid(), found: false },
     { name: 'Woof', id: uniqid(), found: false },
-    { name: 'Odlaw', id: uniqid(), found: false },
     { name: 'Wilma', id: uniqid(), found: false },
+    { name: 'Wizard', id: uniqid(), found: false },
+    { name: 'Odlaw', id: uniqid(), found: false },
   ]);
   const [showList, setShowList] = useState(false);
   const [answer, setAnswer] = useState(null);
+  const [xy, setXY] = useState({ x: 0, y: 0 });
+  const [checked, setChecked] = useState(false);
+  const [won, setWon] = useState(false);
+  const [start, setStart] = useState(false);
+  const [time, setTime] = useState(0);
+  const [finalTime, setFinalTime] = useState(0);
 
   const switchList = () => {
     setShowList(!showList);
@@ -58,18 +66,35 @@ const App = () => {
     setCharacters(characters.map((c) => (c.name === name ? { ...c, found: !c.found } : c)));
   };
 
-  const resetFound = () => {
+  const startGame = () => {
+    setStart(true);
+  };
+
+  const reset = () => {
     setCharacters(
       characters.map((c) => {
         return { ...c, found: false };
       }),
     );
+    setWon(false);
+    setTime(0);
+    endGame();
+  };
+
+  const endGame = () => {
+    setAnswer(null);
+    setShowList(false);
+    setChecked(false);
+    setStart(false);
   };
 
   const handleClick = (e) => {
-    const { title } = e.target;
-    switchList();
-    title ? setAnswer(title) : setAnswer(null);
+    const { title } = e.target.dataset;
+    if (start) {
+      switchList();
+      title ? setAnswer(title) : setAnswer(null);
+      getCoords(e);
+    }
   };
 
   const checkAnswer = (e) => {
@@ -77,24 +102,103 @@ const App = () => {
     if (answer === target.textContent) {
       handleAnswer(answer);
     }
-    setAnswer(null);
     switchList();
+    setChecked(true);
+  };
+
+  const getCoords = (e) => {
+    setXY({ x: e.pageX, y: e.pageY });
+  };
+
+  const storeWinTime = useCallback(() => {
+    setFinalTime(time);
+  }, [time]);
+
+  //function to say if correct or not
+  useEffect(() => {
+    setTimeout(() => {
+      setAnswer(null);
+      setChecked(false);
+    }, 1000);
+  }, [checked]);
+
+  useEffect(() => {
+    const result = characters.every((item) => item.found === true);
+    storeWinTime();
+    setTimeout(() => {
+      if (result) {
+        setWon(true);
+        endGame();
+      }
+    }, 1800);
+  }, [characters, storeWinTime]);
+
+  useEffect(() => {
+    let interval = null;
+    if (start) {
+      interval = setInterval(() => {
+        setTime((time) => time + 1);
+      }, 1000);
+    } else {
+      clearInterval(interval);
+    }
+    return () => {
+      clearInterval(interval);
+    };
+  }, [start]);
+
+  const convertTime = (seconds) => {
+    var h = Math.floor(seconds / 3600)
+        .toString()
+        .padStart(2, '0'),
+      m = Math.floor((seconds % 3600) / 60)
+        .toString()
+        .padStart(2, '0'),
+      s = Math.floor(seconds % 60)
+        .toString()
+        .padStart(2, '0');
+
+    return h + ':' + m + ':' + s;
   };
 
   return (
     <div className="App">
       <header className="App-header">
-        <h2>Header</h2>
+        <h2>Where's Wally?</h2>
+        <div>
+          <div className="header-btn-div">
+            {!start && (
+              <button className="header-btn" onClick={startGame}>
+                Start
+              </button>
+            )}
+          </div>
+        </div>
+        <div className="header-btn-div">
+          <button className="header-btn" onClick={reset}>
+            Reset
+          </button>
+        </div>
       </header>
-      <button onClick={resetFound}>Reset</button>
-      <Characters />
+      <CharBanner characters={characters} time={time} convertTime={convertTime} />
       <Picture
         characters={characters}
         showList={showList}
         switchList={switchList}
         handleClick={handleClick}
+        start={start}
       />
-      {showList && <CharSelection characters={characters} checkAnswer={checkAnswer} />}
+      {showList && <CharSelection characters={characters} checkAnswer={checkAnswer} xy={xy} />}
+      {checked && <Found answer={answer} />}
+      {won && (
+        <Win
+          won={won}
+          reset={reset}
+          startGame={startGame}
+          convertTime={convertTime}
+          finalTime={finalTime}
+        />
+      )}
     </div>
   );
 };
