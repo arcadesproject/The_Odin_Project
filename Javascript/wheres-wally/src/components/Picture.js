@@ -1,7 +1,18 @@
-import giants from '../assets/images/giants.jpg';
+import pics from '../data/picInfo';
 
 const Picture = (props) => {
-  const { handleClick } = props;
+  const { handleClick, characters, scale, currentPic } = props;
+
+  const mapped = characters.map((character) => {
+    return { ...character, x: Number(character.x * scale), y: Number(character.y * scale) };
+  });
+  const wally = mapped[0];
+  const woof = mapped[1];
+  const wilma = mapped[2];
+  const wizard = mapped[3];
+  const odlaw = mapped[4];
+
+  const pic = pics.find((pic) => pic.id === currentPic);
 
   return (
     <div className="picture-div">
@@ -9,35 +20,35 @@ const Picture = (props) => {
         <map name="wallymap">
           <area
             shape="circle"
-            coords="552, 1290, 50"
+            coords={`${wally.x}, ${wally.y}, 50`}
             alt="Wally"
             data-title="Wally"
             onClick={handleClick}
           />
           <area
             shape="circle"
-            coords="74, 1437, 50"
+            coords={`${woof.x}, ${woof.y}, 50`}
             alt="Woof"
             data-title="Woof"
             onClick={handleClick}
           />
           <area
             shape="circle"
-            coords="2950, 1498, 50"
+            coords={`${wizard.x}, ${wizard.y}, 50`}
             alt="Wizard"
             data-title="Wizard"
             onClick={handleClick}
           />
           <area
             shape="circle"
-            coords="2125, 1555, 50"
+            coords={`${wilma.x}, ${wilma.y}, 50`}
             alt="Wilma"
             data-title="Wilma"
             onClick={handleClick}
           />
           <area
             shape="circle"
-            coords="1805, 1760, 50"
+            coords={`${odlaw.x}, ${odlaw.y}, 50`}
             alt="Odlaw"
             data-title="Odlaw"
             onClick={handleClick}
@@ -48,9 +59,9 @@ const Picture = (props) => {
           // onMouseLeave={revertCursor}
           onClick={handleClick}
           className="main-img"
-          id="pic-test"
-          src={giants}
-          alt="Wally Giants"
+          id={pic.id}
+          src={pic.src}
+          alt={pic.alt}
           useMap="#wallymap"
         />
       </section>

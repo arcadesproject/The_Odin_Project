@@ -1,5 +1,5 @@
 const Win = (props) => {
-  const { startGame, finalTime, convertTime, reset } = props;
+  const { startGame, finalTime, convertTime, reset, switchPic } = props;
   const formattedTime = convertTime(finalTime);
   return (
     <section className="win-container">
@@ -11,6 +11,15 @@ const Win = (props) => {
           startGame();
         }}>
         Replay?
+      </button>
+      <button
+        data-value="0"
+        className="replay-btn"
+        onClick={(e) => {
+          reset();
+          switchPic(e);
+        }}>
+        Choose another picture?
       </button>
     </section>
   );

@@ -1,12 +1,12 @@
 const Found = (props) => {
-  const { answer } = props;
+  const { answer, correct } = props;
 
   return (
     <section className="found-container">
-      {answer === null ? (
-        <p className="found-wrong">Not there! Try again.</p>
-      ) : (
+      {correct ? (
         <p className="found-right">You found {answer}!</p>
+      ) : (
+        <p className="found-wrong">Not there! Try again.</p>
       )}
     </section>
   );

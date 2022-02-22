@@ -4,69 +4,50 @@ import CharBanner from './components/CharBanner';
 import CharSelection from './components/CharSelection';
 import Found from './components/Found';
 import Win from './components/Win';
-import uniqid from 'uniqid';
+import charInfo from './data/charInfo';
 import { useState, useEffect, useCallback } from 'react';
-
-// const getXY = (e) => {
-//   const { target } = e;
-//   //get equivalent to offsetX, offsetY or nativeEvent.offsetX etc.
-//   const rect = e.target.getBoundingClientRect();
-//   var x = e.clientX - rect.left;
-//   var y = e.clientY - rect.top;
-//   //width of source image, scale to know how much smaller
-//   const maxWidth = target.width;
-//   const scale = getScale(maxWidth, target.scrollWidth);
-//   //get middle point to know how much to add to values
-//   const center = getCenter(target.scrollWidth, target.scrollHeight);
-//   const relX = x - center.x;
-//   const relY = y - center.y;
-//   //get scaled value
-//   const scaledX = relX * scale;
-//   const scaledY = relY * scale;
-//   //add back to middle points for true value
-//   console.log(Number((scaledX + center.x).toFixed(5)), Number((scaledY + center.y).toFixed(5)));
-//   return {
-//     x: Number((scaledX + center.x).toFixed(5)),
-//     y: Number((scaledY + center.y).toFixed(5)),
-//   };
-// };
-
-// const getScale = (width, maxWidth) => {
-//   return maxWidth / width;
-// };
-
-// const getCenter = (width, height) => {
-//   const left = width / 2;
-//   const top = height / 2;
-//   return { x: left, y: top };
-// };
+import getXY from './utils/scale';
 
 const App = () => {
-  const [characters, setCharacters] = useState([
-    { name: 'Wally', id: uniqid(), found: false },
-    { name: 'Woof', id: uniqid(), found: false },
-    { name: 'Wilma', id: uniqid(), found: false },
-    { name: 'Wizard', id: uniqid(), found: false },
-    { name: 'Odlaw', id: uniqid(), found: false },
-  ]);
+  const [characters, setCharacters] = useState([]);
   const [showList, setShowList] = useState(false);
   const [answer, setAnswer] = useState(null);
   const [xy, setXY] = useState({ x: 0, y: 0 });
   const [checked, setChecked] = useState(false);
+  const [correct, setCorrect] = useState(false);
   const [won, setWon] = useState(false);
   const [start, setStart] = useState(false);
   const [time, setTime] = useState(0);
   const [finalTime, setFinalTime] = useState(0);
+  const [scale, setScale] = useState(1);
+  const [currentPic, setCurrentPic] = useState('pic-0');
+
+  const switchPic = (e) => {
+    const { target } = e;
+    const value = target.dataset.value;
+    setCurrentPic(`pic-${value}`);
+    const characterArray = charInfo[value - 1];
+    setCharacters(characterArray); // value needs to be one two etc. that matches from picinfo.js imports
+  };
+
+  useEffect(() => {
+    const picObserver = new ResizeObserver((entries) => {
+      const width = entries[0].target.scrollWidth;
+      const natural = entries[0].target.naturalWidth;
+      const scale = Number((width / natural).toFixed(5));
+      setScale(scale);
+    });
+    const pic = document.getElementById(`${currentPic}`);
+    if (currentPic !== 'pic-0') picObserver.observe(pic);
+
+    return () => {
+      picObserver.disconnect();
+    };
+  }, [currentPic]);
 
   //show/remove character selection choice list
   const switchList = () => {
     setShowList(!showList);
-  };
-
-  //when answer is correct set found value on character object to true
-  const handleAnswer = (character) => {
-    const name = character;
-    setCharacters(characters.map((c) => (c.name === name ? { ...c, found: !c.found } : c)));
   };
 
   //start the game, starts clock, allows handleclick etc.
@@ -97,11 +78,14 @@ const App = () => {
   //click on main image when game started, title is from area html attribute
   const handleClick = (e) => {
     const { title } = e.target.dataset;
+    //need to set coords in picture.js areas, change on window resize etc?
+    //set initial scale based on image size, nat width and update if changed etc.
     if (start) {
       switchList();
       title ? setAnswer(title) : setAnswer(null);
       getCoords(e);
     }
+    // getXY(e);
   };
 
   //check to see if the name and location matches object, checked popup right/wrong
@@ -109,10 +93,26 @@ const App = () => {
     const { target } = e;
     if (answer === target.textContent) {
       handleAnswer(answer);
+      setCorrect(true);
     }
     switchList();
     setChecked(true);
   };
+
+  //when answer is correct set found value on character object to true
+  const handleAnswer = (character) => {
+    const name = character;
+    setCharacters(characters.map((c) => (c.name === name ? { ...c, found: !c.found } : c)));
+  };
+
+  //reset answer and checked values when checked state changes
+  useEffect(() => {
+    setTimeout(() => {
+      setAnswer(null);
+      setChecked(false);
+      setCorrect(false);
+    }, 1000);
+  }, [checked]);
 
   //coords to position answer list usefully
   const getCoords = (e) => {
@@ -121,16 +121,9 @@ const App = () => {
 
   //so can display the time the game was completed in
   const storeWinTime = useCallback(() => {
-    setFinalTime(time);
+    const currentTime = time;
+    setFinalTime(currentTime);
   }, [time]);
-
-  //reset answer and checked values when checked state changes
-  useEffect(() => {
-    setTimeout(() => {
-      setAnswer(null);
-      setChecked(false);
-    }, 1000);
-  }, [checked]);
 
   //check if game is won everytime a character state is changed
   //it will be the found attribute
@@ -139,7 +132,7 @@ const App = () => {
     const result = characters.every((item) => item.found === true);
     storeWinTime();
     setTimeout(() => {
-      if (result) {
+      if (result && characters.length > 0) {
         setWon(true);
         endGame();
       }
@@ -179,28 +172,42 @@ const App = () => {
 
   return (
     <div className="App">
-      <Header start={start} startGame={startGame} reset={reset} />
-      <CharBanner characters={characters} time={time} convertTime={convertTime} />
-      <Picture
-        characters={characters}
-        showList={showList}
-        switchList={switchList}
-        handleClick={handleClick}
-        start={start}
-      />
-      {/* character list toggle */}
-      {showList && <CharSelection characters={characters} checkAnswer={checkAnswer} xy={xy} />}
-      {/* popup div after an answer is checked */}
-      {checked && <Found answer={answer} />}
-      {/* popup when user wins */}
-      {won && (
-        <Win
-          won={won}
-          reset={reset}
-          startGame={startGame}
-          convertTime={convertTime}
-          finalTime={finalTime}
-        />
+      {currentPic === 'pic-0' ? (
+        <div>
+          Test
+          <button data-value="1" onClick={switchPic}>
+            Switch 1
+          </button>
+          <button data-value="2" onClick={switchPic}>
+            Switch 2
+          </button>
+        </div>
+      ) : (
+        <div>
+          <Header start={start} startGame={startGame} reset={reset} switchPic={switchPic} />
+          <CharBanner characters={characters} time={time} convertTime={convertTime} />
+          <Picture
+            characters={characters}
+            handleClick={handleClick}
+            scale={scale}
+            currentPic={currentPic}
+          />
+          {/* character list toggle */}
+          {showList && <CharSelection characters={characters} checkAnswer={checkAnswer} xy={xy} />}
+          {/* popup div after an answer is checked */}
+          {checked && <Found answer={answer} correct={correct} />}
+          {/* popup when user wins */}
+          {won && (
+            <Win
+              won={won}
+              reset={reset}
+              startGame={startGame}
+              convertTime={convertTime}
+              finalTime={finalTime}
+              switchPic={switchPic}
+            />
+          )}
+        </div>
       )}
     </div>
   );
