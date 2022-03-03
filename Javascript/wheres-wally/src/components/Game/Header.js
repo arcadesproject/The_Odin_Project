@@ -1,13 +1,15 @@
+import { Link } from 'react-router-dom';
+
 const Header = (props) => {
-  const { start, startGame, reset, switchPic } = props;
+  const { startBtn, startGame, reset } = props;
   return (
     <header className="App-header">
       <h2>Where's Wally?</h2>
       <div>
         <div className="header-btn-div">
           {/* hide/show start button */}
-          {!start && (
-            <button className="header-btn" onClick={startGame}>
+          {!startBtn && (
+            <button className="start-btn" onClick={startGame}>
               Start
             </button>
           )}
@@ -19,15 +21,11 @@ const Header = (props) => {
         </button>
       </div>
       <div className="header-btn-div">
-        <button
-          data-value="0"
-          className="header-btn"
-          onClick={(e) => {
-            switchPic(e);
-            reset();
-          }}>
-          Switch
-        </button>
+        <Link to="/">
+          <button data-value="null" className="header-btn" onClick={reset}>
+            Switch
+          </button>
+        </Link>
       </div>
     </header>
   );

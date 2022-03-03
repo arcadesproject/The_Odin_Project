@@ -2,9 +2,9 @@ import uniqid from 'uniqid';
 
 const charInfo = [
   [
-    { name: 'Wally', id: uniqid(), found: false, x: 640, y: 1500 },
+    { name: 'Wally', id: uniqid(), found: false, x: 640, y: 1520 },
     { name: 'Woof', id: uniqid(), found: false, x: 85, y: 1665 },
-    { name: 'Wilma', id: uniqid(), found: false, x: 2460, y: 1800 },
+    { name: 'Wilma', id: uniqid(), found: false, x: 2460, y: 1790 },
     { name: 'Wizard', id: uniqid(), found: false, x: 3415, y: 1735 },
     { name: 'Odlaw', id: uniqid(), found: false, x: 2090, y: 2035 },
   ],

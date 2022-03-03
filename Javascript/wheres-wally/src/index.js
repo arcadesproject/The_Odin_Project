@@ -1,13 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-// eslint-disable-next-line no-unused-vars
-import FirebaseApp from './Firebase';
+import RouterSwitch from './RouterSwitch';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <RouterSwitch />
   </React.StrictMode>,
   document.getElementById('root'),
 );

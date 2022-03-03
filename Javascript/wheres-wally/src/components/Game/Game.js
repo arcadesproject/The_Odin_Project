@@ -1,34 +1,28 @@
-import Header from './components/Header';
-import Picture from './components/Picture';
-import CharBanner from './components/CharBanner';
-import CharSelection from './components/CharSelection';
-import Found from './components/Found';
-import Win from './components/Win';
-import charInfo from './data/charInfo';
-import { useState, useEffect, useCallback } from 'react';
-import getXY from './utils/scale';
+import Header from './Header';
+import Picture from './Picture';
+import CharBanner from './CharBanner';
+import CharSelection from './CharSelection';
+import Found from './Found';
+import Win from './Win';
+import { useEffect, useState, useCallback } from 'react';
+import { saveScore } from '../Firebase';
+import convertTime from '../../utils/convertTime';
 
-const App = () => {
-  const [characters, setCharacters] = useState([]);
+const Game = (props) => {
+  const { currentPic, leaderboard, characters, manageCharacters, switchPic } = props;
+
   const [showList, setShowList] = useState(false);
   const [answer, setAnswer] = useState(null);
-  const [xy, setXY] = useState({ x: 0, y: 0 });
-  const [checked, setChecked] = useState(false);
-  const [correct, setCorrect] = useState(false);
   const [won, setWon] = useState(false);
   const [start, setStart] = useState(false);
   const [time, setTime] = useState(0);
-  const [finalTime, setFinalTime] = useState(0);
+  const [checked, setChecked] = useState(false);
+  const [correct, setCorrect] = useState(false);
   const [scale, setScale] = useState(1);
-  const [currentPic, setCurrentPic] = useState('pic-0');
-
-  const switchPic = (e) => {
-    const { target } = e;
-    const value = target.dataset.value;
-    setCurrentPic(`pic-${value}`);
-    const characterArray = charInfo[value - 1];
-    setCharacters(characterArray); // value needs to be one two etc. that matches from picinfo.js imports
-  };
+  const [xy, setXY] = useState({ x: 0, y: 0 });
+  const [showLeaderboard, setShowLeaderboard] = useState(false);
+  const [finalTime, setFinalTime] = useState(0);
+  const [startBtn, setStartBtn] = useState(false);
 
   useEffect(() => {
     const picObserver = new ResizeObserver((entries) => {
@@ -53,17 +47,19 @@ const App = () => {
   //start the game, starts clock, allows handleclick etc.
   const startGame = () => {
     setStart(true);
+    setStartBtn(true);
   };
 
   //reset all values, clock and so on
   const reset = () => {
-    setCharacters(
+    manageCharacters(
       characters.map((c) => {
         return { ...c, found: false };
       }),
     );
     setWon(false);
     setTime(0);
+    setStartBtn(false);
     endGame();
   };
 
@@ -78,8 +74,6 @@ const App = () => {
   //click on main image when game started, title is from area html attribute
   const handleClick = (e) => {
     const { title } = e.target.dataset;
-    //need to set coords in picture.js areas, change on window resize etc?
-    //set initial scale based on image size, nat width and update if changed etc.
     if (start) {
       switchList();
       title ? setAnswer(title) : setAnswer(null);
@@ -102,7 +96,7 @@ const App = () => {
   //when answer is correct set found value on character object to true
   const handleAnswer = (character) => {
     const name = character;
-    setCharacters(characters.map((c) => (c.name === name ? { ...c, found: !c.found } : c)));
+    manageCharacters(characters.map((c) => (c.name === name ? { ...c, found: !c.found } : c)));
   };
 
   //reset answer and checked values when checked state changes
@@ -112,6 +106,8 @@ const App = () => {
       setChecked(false);
       setCorrect(false);
     }, 1000);
+
+    return () => {};
   }, [checked]);
 
   //coords to position answer list usefully
@@ -154,63 +150,53 @@ const App = () => {
     };
   }, [start]);
 
-  //convert seconds to hours: minutes: seconds
-  //could probably use date-fns
-  const convertTime = (seconds) => {
-    var h = Math.floor(seconds / 3600)
-        .toString()
-        .padStart(2, '0'),
-      m = Math.floor((seconds % 3600) / 60)
-        .toString()
-        .padStart(2, '0'),
-      s = Math.floor(seconds % 60)
-        .toString()
-        .padStart(2, '0');
+  const handleSaveScore = (e) => {
+    e.preventDefault();
+    const { target } = e;
+    const name = target.name.value;
+    console.log(leaderboard);
+    if (name === '') {
+      alert('Please enter a name!');
+    } else {
+      saveScore(leaderboard, name, finalTime);
+      setShowLeaderboard(true);
+    }
+  };
 
-    return h + ':' + m + ':' + s;
+  const viewBoard = () => {
+    reset();
   };
 
   return (
-    <div className="App">
-      {currentPic === 'pic-0' ? (
-        <div>
-          Test
-          <button data-value="1" onClick={switchPic}>
-            Switch 1
-          </button>
-          <button data-value="2" onClick={switchPic}>
-            Switch 2
-          </button>
-        </div>
-      ) : (
-        <div>
-          <Header start={start} startGame={startGame} reset={reset} switchPic={switchPic} />
-          <CharBanner characters={characters} time={time} convertTime={convertTime} />
-          <Picture
-            characters={characters}
-            handleClick={handleClick}
-            scale={scale}
-            currentPic={currentPic}
-          />
-          {/* character list toggle */}
-          {showList && <CharSelection characters={characters} checkAnswer={checkAnswer} xy={xy} />}
-          {/* popup div after an answer is checked */}
-          {checked && <Found answer={answer} correct={correct} />}
-          {/* popup when user wins */}
-          {won && (
-            <Win
-              won={won}
-              reset={reset}
-              startGame={startGame}
-              convertTime={convertTime}
-              finalTime={finalTime}
-              switchPic={switchPic}
-            />
-          )}
-        </div>
+    <section>
+      <Header startBtn={startBtn} startGame={startGame} reset={reset} switchPic={switchPic} />
+      <CharBanner characters={characters} time={time} convertTime={convertTime} />
+      <Picture
+        characters={characters}
+        handleClick={handleClick}
+        scale={scale}
+        currentPic={currentPic}
+      />
+      {showList && <CharSelection characters={characters} checkAnswer={checkAnswer} xy={xy} />}
+      {/* popup div after an answer is checked */}
+      {checked && <Found answer={answer} correct={correct} />}
+      {/* popup when user wins */}
+      {won && (
+        <Win
+          won={won}
+          reset={reset}
+          startGame={startGame}
+          convertTime={convertTime}
+          finalTime={finalTime}
+          leaderboard={leaderboard}
+          handleSaveScore={handleSaveScore}
+          showLeaderboard={showLeaderboard}
+          viewBoard={viewBoard}
+          switchPic={switchPic}
+        />
       )}
-    </div>
+    </section>
   );
 };
 
-export default App;
+export default Game;
