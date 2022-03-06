@@ -16,23 +16,32 @@ const server = http.createServer((req, res) => {
   let path;
   //if it matches a set url then simply set the path, matching file used
   if (pages.includes(requestURL)) {
+    res.statusCode = 200;
     path = `.${requestURL}.html`;
     //otherwise for special index path or 404 for those that don't match anything
   } else {
-    requestURL === '/' ? (path = `./index.html`) : (path = `./404.html`);
+    switch (requestURL) {
+      case '/':
+        res.statusCode = 200;
+        path = `./index.html`;
+        break;
+      //a redirect example
+      case '/about-me':
+        res.statusCode = 301;
+        res.setHeader('Location', 'about');
+        res.end();
+        break;
+      default:
+        path = `./404.html`;
+        res.statusCode = 404;
+        break;
+    }
   }
 
   fs.readFile(path, (err, data) => {
     //no matches, return 404.html page, 404 error code
-    if (err) {
-      console.log(err);
-      res.statusCode = 404;
-      return res.end(data);
-      //matches, so set 200 code and data wanted
-    } else {
-      res.statusCode = 200;
-      return res.end(data);
-    }
+    if (err) console.log(err);
+    return res.end(data);
   });
 });
 
