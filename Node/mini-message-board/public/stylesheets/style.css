@@ -1,8 +1,22 @@
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 14px 'Lucida Grande', Helvetica, Arial, sans-serif;
 }
 
 a {
-  color: #00B7FF;
+  color: #00b7ff;
+}
+
+li {
+  list-style: none;
+}
+
+.message {
+  width: 50%;
+  height: 50px;
+  margin-top: 20px;
+}
+
+.time {
+  border-bottom: 2px solid black;
 }

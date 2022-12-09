@@ -3,3 +3,15 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+
+  - var values =messages;
+  ul
+    each val in values
+      div
+        li(class='message')= val.user + ': ' + val.text 
+        li(class='time')= 'Sent on: ' + val.added
+    else
+      li There are no values
+  
+  p 
+    a(href='/new') New Message
